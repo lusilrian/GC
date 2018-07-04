@@ -15,12 +15,12 @@ public class Member implements Serializable{
 	private ArrayList<Movie> m2;//구매 영화 내역
 	private ArrayList<Store> s1;//사용전 구매내역
 	private ArrayList<Store> s2;//구매 스토어 내역
-	public Member(String userId, String userPwd, String name, char gender, String birthDay, String phoneNumber,
+	public Member(String userId, String userPwd, String name, String birthDay, String num, String phoneNumber,
 			String email) {
 		this.userId = userId;
 		this.userPwd = userPwd;
 		this.name = name;
-		this.gender = gender;
+		this.gender = (num.charAt(0) == '1') ? '남' : '여';
 		this.birthDay = birthDay;
 		this.phoneNumber = phoneNumber;
 		this.email = email;
