@@ -4,14 +4,13 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import model.vo.Member;
+import model.dao.MemberDao;
 
 public class MainPanel extends JPanel {
 	private JFrame mf;
@@ -21,7 +20,8 @@ public class MainPanel extends JPanel {
 	private JPanel main = new JPanel();
 	private JPanel sub = new JPanel();
 	private MainPanel mp = this;
-	private ArrayList<Member> list = new ArrayList();
+	
+	//private ArrayList<Member> list = new ArrayList();
 	public MainPanel(JFrame mf){
 		this.mf = mf;
 		panel = this;
@@ -70,7 +70,7 @@ public class MainPanel extends JPanel {
 		signUp.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new SignUp(list);
+				new SignUp();
 
 			}
 
