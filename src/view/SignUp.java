@@ -4,22 +4,26 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import model.dao.MemberDao;
 import model.vo.Member;
 
-public class SignUp extends JFrame {
+public class SignUp extends JFrame
+{
+	MemberDao md = new MemberDao();
 	JFrame jf = this;
-	ArrayList<Member> list;
-	public SignUp(ArrayList<Member> list){
-		this.list = list;
+	//ArrayList<Member> list;
+	public SignUp()
+	{	
+		//this.list = list;
 		//폰트설정
 		Font pwdFont = new Font("gulim", Font.BOLD, 15);
 		Font pwdFont2 = new Font("gulim", Font.BOLD, 15);
@@ -48,13 +52,74 @@ public class SignUp extends JFrame {
 		idTxt.setFont(font);
 		userId.add(idLabel);
 		userId.add(idTxt);
-		
-		
+
+
 		JButton btn2 = new JButton("중복검사 확인칸");
 		btn2.setLocation(80, 195);
-		btn2.setSize(230, 35); 
-		
-		
+		btn2.setSize(230, 35);
+		btn2.addMouseListener(new MouseAdapter()
+		{
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				//회원가입할 아이디가 사전에 등록된 회원의 아이디와 동일할 경우 true가 리턴 된다.
+				if(md.overlapId(idTxt.getText()) == true)
+				{
+					JDialog dialog = new JDialog();
+
+					dialog.setLayout(null);
+
+					JLabel overlap = new JLabel("이미 존재하는 아이디입니다.");
+					JButton overlapBtn = new JButton("확인");
+
+					overlap.setBounds(60, 20, 250, 30);
+					overlapBtn.setBounds(100, 60, 75, 35);
+					dialog.add(overlapBtn);
+					dialog.add(overlap);
+					dialog.setBounds(250, 150, 300, 150);
+					dialog.setVisible(true);
+
+					overlapBtn.addMouseListener(new MouseAdapter()
+					{
+						@Override
+						public void mouseClicked(MouseEvent e)
+						{
+							dialog.setVisible(false);
+						}
+					});
+				}
+				if(md.overlapId(idTxt.getText()) == false)
+				{
+					JDialog dialog = new JDialog();
+
+					dialog.setLayout(null);
+
+					JLabel overlap = new JLabel("사용 가능한 아이디입니다.");
+					JButton overlapBtn = new JButton("확인");
+
+					overlap.setBounds(60, 20, 250, 30);
+					overlapBtn.setBounds(100, 60, 75, 35);
+					dialog.add(overlapBtn);
+					dialog.add(overlap);
+					dialog.setBounds(250, 150, 300, 150);
+					dialog.setVisible(true);
+
+					overlapBtn.addMouseListener(new MouseAdapter()
+					{
+						@Override
+						public void mouseClicked(MouseEvent e)
+						{
+							dialog.setVisible(false);
+						}
+					});
+				}
+				else
+				{
+
+				}
+			}
+		});
+
 		//비밀번호
 		JPanel userPwd = new JPanel();
 		userPwd.setBackground(Color.white);
@@ -67,7 +132,7 @@ public class SignUp extends JFrame {
 		pwdTxt.setBounds(80, 10, 380, 35);
 		userPwd.add(pwdLabel);
 		userPwd.add(pwdTxt);
-		
+
 		//비밀번호 확인
 		JPanel userPwd2 = new JPanel();
 		userPwd2.setBackground(Color.white);
@@ -80,7 +145,7 @@ public class SignUp extends JFrame {
 		pwdTxt2.setBounds(80, 10, 380, 35);
 		userPwd2.add(pwdLabel2);
 		userPwd2.add(pwdTxt2);
-		
+
 		//이름
 		JPanel userName = new JPanel();
 		userName.setBackground(Color.white);
@@ -94,8 +159,8 @@ public class SignUp extends JFrame {
 		nameTxt.setFont(font);
 		userName.add(nameLabel);
 		userName.add(nameTxt);
-		
-		//주미등록 번호
+
+		//주민등록 번호
 		JPanel userNum = new JPanel();
 		userNum.setBackground(Color.white);
 		userNum.setBounds(80, 430, 460, 55);
@@ -120,8 +185,8 @@ public class SignUp extends JFrame {
 		userNum.add(numTxt);
 		userNum.add(numLabel3);
 		userNum.add(numTxt2);
-		
-		
+
+
 		//휴대폰번호
 		JPanel userPhone = new JPanel();
 		userPhone.setBackground(Color.white);
@@ -139,8 +204,8 @@ public class SignUp extends JFrame {
 		userPhone.add(phoneLabel);
 		userPhone.add(phoneLabel2);
 		userPhone.add(phoneTxt);
-		
-		
+
+
 		//이메일주소
 		JPanel userMail = new JPanel();
 		userMail.setBackground(Color.white);
@@ -158,31 +223,67 @@ public class SignUp extends JFrame {
 		userMail.add(mailLabel);
 		userMail.add(mailLabel2);
 		userMail.add(mailTxt);
-		
+
 		JButton btn10 = new JButton("회원가입버튼");
 		btn10.setLocation(65, 705);
 		btn10.setSize(490, 65);
-		btn10.addMouseListener(new MouseAdapter() {
+		btn10.addMouseListener(new MouseAdapter()
+		{
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				jf.setVisible(false);
+			public void mouseClicked(MouseEvent e)
+			{
+				String password = "";
+				char[] pass = pwdTxt.getPassword();
 
+				for(int i=0; i<pass.length; i++)
+				{
+					password += pass[i];
+				}
+				
+				String password2 = "";
+				char[] pass2 = pwdTxt2.getPassword();
+				
+				for(int i=0; i<pass2.length; i++)
+				{
+					password2 += pass2[i];
+				}
+
+				System.out.println(password);
+				System.out.println(password2);
+				
+				if(md.overlapId(idTxt.getText()))
+				{
+					System.out.println("아이디 중복이야!");
+				}
+				else if(!password.equals(password2))
+				{
+					System.out.println("비밀번호가 달라!");
+				}
+				else if(!(numTxt2.getText().charAt(0) >= '1' && numTxt2.getText().charAt(0) <= '4'))
+				{
+					System.out.println("1~4가 아니야!");
+				}
+				else
+				{
+					Member m = new Member(idTxt.getText(), password, nameTxt.getText(), (numTxt.getText() + "-" + numTxt2.getText()), numTxt2.getText().substring(0), phoneTxt.getText(), mailTxt.getText());
+					md.signUp(m);
+					jf.setVisible(false);
+				}
 			}
-
 		});
 		JButton btn11 = new JButton("회원가입");
 		btn11.setLocation(120, 45);
 		btn11.setSize(130, 55); 
-		
+
 		//선레이아웃
 		JButton btn12 = new JButton("");
 		btn12.setLocation(20, 110);
 		btn12.setSize(580, 5);
-		
+
 		JButton btn13 = new JButton("");
 		btn13.setLocation(20, 570+20+55+20);
 		btn13.setSize(580, 5);
-		
+
 		jp.add(btn);
 		jp.add(userId);
 		jp.add(btn2);

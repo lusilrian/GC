@@ -13,7 +13,9 @@ import javax.swing.JPanel;
 public class Logo extends JFrame {
 	JFrame mf = this;
 	JPanel panel;
-	public Logo(){
+	
+	public Logo()
+	{
 		this.setBounds(0, 0, 640, 860);
 		this.setLayout(null);
 		this.setTitle("GC¿µÈ­°ü");
