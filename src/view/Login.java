@@ -139,6 +139,23 @@ public class Login extends JFrame {
 					mp.setLogin(true);
 					mf.repaint();
 					System.out.println(mp.getLogin());
+					sdf.addMouseListener(new MouseAdapter()
+					{
+						@Override
+						public void mouseClicked(MouseEvent e)
+						{
+							String password = "";
+							char[] pass = pwdTxt.getPassword();
+
+							for(int i=0; i<pass.length; i++)
+							{
+								password += pass[i];
+							}
+							ChangePanel c = new ChangePanel(mf, mp);
+							MyAccount m = new MyAccount(mf, nameTxt.getText(), password);
+							c.change(m);
+						}
+					});
 					a.setVisible(false);
 				}
 			}

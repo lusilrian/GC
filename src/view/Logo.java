@@ -41,7 +41,7 @@ public class Logo extends JFrame {
 		panel.add(btn);
 		panel.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseClicked(MouseEvent e){
 				ChangePanel c = new ChangePanel(mf, panel);
 				MainPanel m = new MainPanel(mf);
 				c.change(m);
