@@ -21,7 +21,6 @@ public class MainPanel extends JPanel {
 	private JPanel sub = new JPanel();
 	private MainPanel mp = this;
 	
-	//private ArrayList<Member> list = new ArrayList();
 	public MainPanel(JFrame mf){
 		this.mf = mf;
 		panel = this;
