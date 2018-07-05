@@ -20,14 +20,12 @@ public class ChangePanel {
 	}
 	
 	public void change(JPanel changePanel) {
-		System.out.println("change");
 		mf.remove(panel);
 		mf.add(changePanel);
 		mf.repaint();
 	}
 	
 	public void changeP(JPanel changePanel) {
-		System.out.println("change");
 		mainPanel.remove(panel);
 		mainPanel.add(changePanel);
 		mainPanel.repaint();

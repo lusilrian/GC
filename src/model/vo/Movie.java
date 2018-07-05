@@ -1,18 +1,19 @@
 package model.vo;
 
 import java.awt.Image;
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.swing.ImageIcon;
 
-public class Movie {
+public class Movie implements Serializable{
 	private String name; //영화이름
-	private Date time;	//영화 상영 시간
+	private String[] time;	//영화 상영 시간
 	private ImageIcon poster;//영화 포스터
 	private String str;//영화 줄거리
 	private ImageIcon[] cut;//영화 스틸컷
 	private int number = 1; //영화 구매 수량
-	public Movie(String name, Date time, ImageIcon poster, String str, ImageIcon[] cut, int number) {
+	public Movie(String name, String[] time, ImageIcon poster, String str, ImageIcon[] cut, int number) {
 		super();
 		this.name = name;
 		this.time = time;
@@ -30,10 +31,10 @@ public class Movie {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Date getTime() {
+	public String[] getTime() {
 		return time;
 	}
-	public void setTime(Date time) {
+	public void setTime(String[] time) {
 		this.time = time;
 	}
 	public ImageIcon getPoster() {

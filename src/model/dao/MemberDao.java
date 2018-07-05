@@ -28,11 +28,11 @@ public class MemberDao
 		}
 		catch (EOFException e)
 		{
-			System.out.println("파일 로드 완료");
+			System.out.println("회원 파일 로드 완료");
 		}
 		catch (FileNotFoundException e)
 		{
-			e.printStackTrace();
+			System.out.println("회원 파일 없음");
 		}
 		catch (IOException e)
 		{
