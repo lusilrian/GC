@@ -14,7 +14,7 @@ public class Logo extends JFrame {
 	JFrame mf = this;
 	JPanel panel;
 	public Logo(){
-		this.setBounds(0, 0, 640, 860);
+		this.setBounds(0, 0, 640, 900);
 		this.setLayout(null);
 		this.setTitle("GC¿µÈ­°ü");
 		panel = new JPanel();
@@ -29,13 +29,6 @@ public class Logo extends JFrame {
 		btn.setBorderPainted(false);
 		btn.setFocusable(false);
 		btn.setContentAreaFilled(false);
-		/*btn1.setLocation(130, 200);
-		btn1.setSize(350, 350);
-		btn1.setBorderPainted(false);
-		btn1.setFocusable(false);
-		btn1.setContentAreaFilled(false);*/
-//		this.add(btn1);
-//		this.add(btn);
 		panel.add(btn);
 		panel.addMouseListener(new MouseAdapter() {
 			@Override

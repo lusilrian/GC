@@ -5,45 +5,68 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Date;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import model.vo.Member;
+import model.vo.Movie;
 
 public class MainPanel extends JPanel {
 	private JFrame mf;
-	private JPanel panel;
-	private boolean bLogin = false;
+	JPanel panel;
+	JLabel menuName;
+	JButton back;
 	private JPanel loginUp = new JPanel();
 	private JPanel main = new JPanel();
 	private JPanel sub = new JPanel();
+	private ArrayList<Member> memberlist = new ArrayList<Member>();
+	private ArrayList<Movie> movielist = new ArrayList<Movie>();
 	private MainPanel mp = this;
-	private ArrayList<Member> list = new ArrayList();
 	public MainPanel(JFrame mf){
 		this.mf = mf;
 		panel = this;
 		Font font = new Font("gulim", Font.BOLD, 16);
-
+		ImageIcon asdf[] = {new ImageIcon("images/cat.PNG"),new ImageIcon("images/dog.PNG"),new ImageIcon("images/tiger.PNG"),new ImageIcon("images/cat.PNG")};
+		movielist.add(new Movie("a",new Date(),new ImageIcon("images/cat.PNG"),"",asdf,1));
+		movielist.add(new Movie("b",new Date(),new ImageIcon("images/dog.PNG"),"",asdf,1));
+		movielist.add(new Movie("c",new Date(),new ImageIcon("images/tiger.PNG"),"",asdf,1));
+		movielist.add(new Movie("e",new Date(),new ImageIcon("images/cat.PNG"),"",asdf,1));
+		movielist.add(new Movie("f",new Date(),new ImageIcon("images/dog.PNG"),"",asdf,1));
+		movielist.add(new Movie("g",new Date(),new ImageIcon("images/tiger.PNG"),"",asdf,1));
+		movielist.add(new Movie("h",new Date(),new ImageIcon("images/cat.PNG"),"",asdf,1));
+		movielist.add(new Movie("i",new Date(),new ImageIcon("images/dog.PNG"),"",asdf,1));
+		movielist.add(new Movie("j",new Date(),new ImageIcon("images/tiger.PNG"),"",asdf,1));
+		movielist.add(new Movie("a",new Date(),new ImageIcon("images/cat.PNG"),"",asdf,1));
+		movielist.add(new Movie("b",new Date(),new ImageIcon("images/dog.PNG"),"",asdf,1));
+		movielist.add(new Movie("c",new Date(),new ImageIcon("images/tiger.PNG"),"",asdf,1));
+		movielist.add(new Movie("e",new Date(),new ImageIcon("images/cat.PNG"),"",asdf,1));
+		movielist.add(new Movie("f",new Date(),new ImageIcon("images/dog.PNG"),"",asdf,1));
+		movielist.add(new Movie("g",new Date(),new ImageIcon("images/tiger.PNG"),"",asdf,1));
+		movielist.add(new Movie("h",new Date(),new ImageIcon("images/cat.PNG"),"",asdf,1));
+		movielist.add(new Movie("i",new Date(),new ImageIcon("images/dog.PNG"),"",asdf,1));
+		movielist.add(new Movie("j",new Date(),new ImageIcon("images/tiger.PNG"),"",asdf,1));
 		this.setBounds(0, 0, 640, 860);
 		this.setLayout(null);
 		this.setBackground(Color.white);
 		main.setBounds(0, 0, 640, 205);
 		main.setLayout(null);
 		main.setBackground(Color.white);
-		sub.setBounds(0, 205, 640, 860-205);
+		sub.setBounds(0, 205, 640, 655);
 		sub.setLayout(null);
 		sub.setBackground(Color.white);
-
+		
 		//뒤로가기 버튼
-		JButton back = new JButton("<");
+		back = new JButton("<");
 		back.setLocation(45, 45);
 		back.setSize(55, 55);  
-
+		back.setVisible(false);
 		//텍스트칸
-		JLabel menuName = new JLabel("텍스트");
+		menuName = new JLabel("");
 		menuName.setBackground(Color.white);
 		menuName.setFont(font);
 		menuName.setLocation(120, 45);
@@ -57,20 +80,19 @@ public class MainPanel extends JPanel {
 		login.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Login l = new Login(mf,loginUp,mp);
+				Login l = new Login(mf,loginUp);
 
 			}
 
 		});
-
 		//회원가입
-		JButton signUp = new JButton("회원가입");
+		JButton signUp = new JButton(new ImageIcon("images/cat.PNG"));
 		signUp.setLocation(120, 0);
 		signUp.setSize(100, 40);  
 		signUp.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new SignUp(list);
+				new SignUp(memberlist);
 
 			}
 
@@ -88,8 +110,23 @@ public class MainPanel extends JPanel {
 		movie.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				ChangePanel cp = new ChangePanel(panel, sub);
+				MovieMenu m = new MovieMenu(movielist,mp);
+				menuName.setText("영화");
+				back.setVisible(true);
+				back.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						ChangePanel cp = new ChangePanel(panel, m);
+						menuName.setText("");
+						back.setVisible(true);
+						cp.changeP(sub);
+						
+					}
 
+				});
+				cp.changeP(m);
+				
 			}
 
 		});
@@ -136,11 +173,12 @@ public class MainPanel extends JPanel {
 		storeMenu.setLocation(30, 295+15+10+5+10);
 		storeMenu.setSize(560, 250);
 
-
+		
 
 		loginUp.setBounds(350, 55, 220, 40);
 		loginUp.setBackground(Color.white);
 		loginUp.setLayout(null);
+		loginUp.setOpaque(false);
 		loginUp.add(login);
 		loginUp.add(signUp);
 		main.add(line);
@@ -156,13 +194,5 @@ public class MainPanel extends JPanel {
 		sub.add(line2);
 		this.add(main);
 		this.add(sub);
-	}
-
-	public void setLogin(boolean b){
-		this.bLogin = b;
-	}
-
-	public boolean getLogin(){
-		return bLogin;
 	}
 }

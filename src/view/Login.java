@@ -1,23 +1,29 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Window;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
+import model.dao.MemberDao;
 
 public class Login extends JFrame {
 	JFrame mf;
 	JPanel panel;
 	JFrame a = this;
-	MainPanel mp;
-	public Login(JFrame mf2, JPanel panel2, MainPanel mp){
+	MemberDao md = new MemberDao();
+	public Login(JFrame mf2, JPanel panel2){
 		this.mf = mf2;
 		this.panel = panel2;
-		this.mp = mp;
 		this.setSize(420, 600);
 		this.setLayout(null);
 		JPanel p = new JPanel();
@@ -65,7 +71,7 @@ public class Login extends JFrame {
 		JLabel pwdLabel = new JLabel("비밀번호  ");
 		pwdLabel.setBounds(0, 0, 80, 50);
 		pwdLabel.setFont(pwdFont);
-		JTextField pwdTxt = new JTextField(16);
+		JPasswordField pwdTxt = new JPasswordField(16);
 		pwdTxt.setBounds(80, 10, 270-80, 35);
 		pwdTxt.setFont(font);
 		userPwd.add(pwdLabel);
@@ -86,19 +92,53 @@ public class Login extends JFrame {
 		btn4.setSize(230, 40); 
 		btn4.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				panel.removeAll();
-				panel2.setBounds(350, 55, 220, 40);
-				panel2.setBackground(Color.white);
-				JButton sdf = new JButton("로그인됨");
-				sdf.setBounds(0, 0, 220, 40);
-				panel.add(sdf);
-				mp.setLogin(true);
-				mf.repaint();
-				System.out.println(mp.getLogin());
-				a.setVisible(false);
+			public void mouseClicked(MouseEvent e)
+			{
+				String password = "";
+				char[] pass = pwdTxt.getPassword();
+
+				for(int i=0; i<pass.length; i++)
+				{
+					password += pass[i];
+				}
+				if(md.overlapId(nameTxt.getText()) == false || md.overlapPwd(password) == false)
+				{
+					JDialog dialog = new JDialog();
+
+					dialog.setLayout(null);
+
+					JLabel overlap = new JLabel("아이디 또는 비밀번호를 다시 확인하세요!");
+					JButton overlapBtn = new JButton("확인");
+
+					overlap.setBounds(25, 20, 250, 30);
+					overlapBtn.setBounds(100, 60, 75, 35);
+					dialog.add(overlapBtn);
+					dialog.add(overlap);
+					dialog.setBounds(250, 150, 300, 150);
+					dialog.setVisible(true);
+
+					overlapBtn.addMouseListener(new MouseAdapter()
+					{
+						@Override
+						public void mouseClicked(MouseEvent e)
+						{
+							dialog.dispose();
+						}
+					});
+				}
+				else
+				{
+					panel.removeAll();
+					panel2.setBounds(350, 55, 220, 40);
+					panel2.setBackground(Color.white);
+					JButton sdf = new JButton("로그인됨");
+					sdf.setBounds(0, 0, 220, 40);
+					panel.add(sdf);
+					mf.repaint();
+					a.dispose();
+				}
 			}
-			
+
 		});
 		
 		p.add(btn);
