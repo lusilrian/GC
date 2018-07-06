@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class MovieMenu extends JPanel {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					ChangePanel cp = new ChangePanel(mp.panel, panel);
-					MovieInfo m = new MovieInfo(list.get(j));
+					MovieInfo m = new MovieInfo(list.get(j),mp);
 					mp.menuName.setText(list.get(j).getName());
 					mp.home.setText("<");
 					mp.home.addMouseListener(new MouseAdapter() {

@@ -20,10 +20,11 @@ public class MovieDao {
 		try
 		{
 			ObjectInputStream oir = new ObjectInputStream(new FileInputStream("movie.dat"));
-			
+			int i = 0;
 			while(true)
 			{
 				list.add((Movie) oir.readObject());
+				System.out.println(list.get(i++).getName());
 			}
 		}
 		catch (EOFException e)

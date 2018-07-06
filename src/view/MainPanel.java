@@ -2,9 +2,11 @@ package view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -12,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import model.dao.MemberDao;
 import model.dao.MovieDao;
 import model.vo.Member;
 import model.vo.Movie;
@@ -19,6 +22,7 @@ import model.vo.Store;
 
 public class MainPanel extends JPanel {
 	MovieDao movieDao = new MovieDao();
+	MemberDao memberDao = new MemberDao();
 	JFrame mf;
 	JPanel panel;
 	JLabel menuName;
@@ -36,25 +40,7 @@ public class MainPanel extends JPanel {
 		panel = this;
 		Font font = new Font("gulim", Font.BOLD, 16);
 		
-		/*movielist.add(new Movie("a",null,new ImageIcon("images/cat.PNG"),"",asdf,1));
-		movielist.add(new Movie("b",null,new ImageIcon("images/dog.PNG"),"",asdf,1));
-		movielist.add(new Movie("c",null,new ImageIcon("images /tiger.PNG"),"",asdf,1));
-		movielist.add(new Movie("e",null,new ImageIcon("images/cat.PNG"),"",asdf,1));
-		movielist.add(new Movie("f",null,new ImageIcon("images/dog.PNG"),"",asdf,1));
-		movielist.add(new Movie("g",null,new ImageIcon("images/tiger.PNG"),"",asdf,1));
-		movielist.add(new Movie("h",null,new ImageIcon("images/cat.PNG"),"",asdf,1));
-		movielist.add(new Movie("i",null,new ImageIcon("images/dog.PNG"),"",asdf,1));
-		movielist.add(new Movie("j",null,new ImageIcon("images/tiger.PNG"),"",asdf,1));
-		movielist.add(new Movie("a",null,new ImageIcon("images/cat.PNG"),"",asdf,1));
-		movielist.add(new Movie("b",null,new ImageIcon("images/dog.PNG"),"",asdf,1));
-		movielist.add(new Movie("c",null,new ImageIcon("images/tiger.PNG"),"",asdf,1));
-		movielist.add(new Movie("e",null,new ImageIcon("images/cat.PNG"),"",asdf,1));
-		movielist.add(new Movie("f",null,new ImageIcon("images/dog.PNG"),"",asdf,1));
-		movielist.add(new Movie("g",null,new ImageIcon("images/tiger.PNG"),"",asdf,1));
-		movielist.add(new Movie("h",null,new ImageIcon("images/cat.PNG"),"",asdf,1));
-		movielist.add(new Movie("i",null,new ImageIcon("images/dog.PNG"),"",asdf,1));
-		movielist.add(new Movie("j",null,new ImageIcon("images/tiger.PNG"),"",asdf,1));
-		*/this.setBounds(0, 0, 640, 860);
+		this.setBounds(0, 0, 640, 860);
 		this.setLayout(null);
 		this.setBackground(Color.white);
 		main.setBounds(0, 0, 640, 115);
@@ -80,7 +66,7 @@ public class MainPanel extends JPanel {
 		login.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Login l = new Login(mf,loginUp);
+				Login l = new Login(mf,loginUp,memberDao);
 
 			}
 
@@ -92,7 +78,7 @@ public class MainPanel extends JPanel {
 		signUp.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new SignUp(memberlist);
+				new SignUp(memberlist, memberDao);
 
 			}
 
@@ -161,17 +147,27 @@ public class MainPanel extends JPanel {
 		line1.setSize(580, 5);
 
 		//메인화면 포스터
-		JButton pooster = new JButton("");
-		pooster.setLocation(30, 15+55);
-		pooster.setSize(560, 295);
-
+		JPanel poster = new JPanel();
+		poster.setLocation(10, 15+55);
+		poster.setSize(580, 295);
+		poster.setLayout(null);
+		poster.setBackground(Color.WHITE);
+		for(int i = 0; i < 3;i++){
+			Image originImg = movielist.get(i).getPoster().getImage(); 
+			Image changedImg= originImg.getScaledInstance(180, 220, Image.SCALE_SMOOTH );
+			ImageIcon Icon = new ImageIcon(changedImg);
+			JLabel posterl = new JLabel(Icon);
+			posterl.setBounds(0+(i*10)+(i*190), 0, 190, 295);
+			poster.add(posterl);
+		}
+		
 		//<선 레이아웃>3
 		JButton line2 = new JButton("");
 		line2.setLocation(20, 295+15+10+55);
 		line2.setSize(580, 5); 
 
 		//메인화면 스토어
-		JButton storeMenu = new JButton("");
+		JPanel storeMenu = new JPanel();
 		storeMenu.setLocation(30, 295+15+10+5+10+55);
 		storeMenu.setSize(560, 250);
 
@@ -207,7 +203,7 @@ public class MainPanel extends JPanel {
 		sub.add(movie);
 		sub.add(res);
 		sub.add(store);
-		sub.add(pooster);
+		sub.add(poster);
 		sub.add(storeMenu);
 		sub.add(line2);
 		this.add(main);

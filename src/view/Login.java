@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.text.StyledEditorKit.BoldAction;
 
 import model.dao.MemberDao;
 
@@ -20,8 +21,7 @@ public class Login extends JFrame {
 	JFrame mf;
 	JPanel panel;
 	JFrame a = this;
-	MemberDao md = new MemberDao();
-	public Login(JFrame mf2, JPanel panel2){
+	public Login(JFrame mf2, JPanel panel2, MemberDao md){
 		this.mf = mf2;
 		this.panel = panel2;
 		this.setSize(420, 600);
@@ -131,8 +131,17 @@ public class Login extends JFrame {
 					panel.removeAll();
 					panel2.setBounds(350, 55, 220, 40);
 					panel2.setBackground(Color.white);
-					JButton sdf = new JButton("∑Œ±◊¿Œµ ");
+					JPanel sdf = new JPanel();
 					sdf.setBounds(0, 0, 220, 40);
+					sdf.setLayout(null);
+					sdf.setBackground(Color.white);
+					JLabel idLabel = new JLabel(nameTxt.getText() + "¥‘");
+					idLabel.setBounds(0, 0, 100, 40);
+					idLabel.setFont(new Font("gulim",font.BOLD,18));
+					JButton myPage = new JButton("∏∂¿Ã∆‰¿Ã¡ˆ");
+					myPage.setBounds(110, 0, 100, 40);
+					sdf.add(idLabel);
+					sdf.add(myPage);
 					panel.add(sdf);
 					mf.repaint();
 					a.dispose();
