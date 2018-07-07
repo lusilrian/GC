@@ -1,8 +1,10 @@
 package model.vo;
 
+import java.io.Serializable;
+
 import javax.swing.ImageIcon;
 
-public class Store {
+public class Store implements Serializable{
 	private String name;//제품 이름
 	private ImageIcon i;//제품 이미지
 	private int price;//제품 가격
