@@ -6,7 +6,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -19,13 +18,17 @@ import javax.swing.JTextField;
 import model.dao.MemberDao;
 import model.vo.Member;
 
-public class SignUp extends JFrame {
+public class SignUp extends JFrame
+{
+	MemberDao md = new MemberDao();
 	JFrame jf = this;
+
 	ArrayList<Member> list;
 	boolean isid = false;
 	public SignUp(ArrayList<Member> list, MemberDao md){
 		this.list = list;
-		//ÆùÆ®¼³Á¤
+
+		//í°íŠ¸ì„¤ì •
 		Font pwdFont = new Font("gulim", Font.BOLD, 15);
 		Font pwdFont2 = new Font("gulim", Font.BOLD, 15);
 		Font font = new Font("gulim", Font.BOLD, 16);
@@ -36,12 +39,13 @@ public class SignUp extends JFrame {
 		jp.setLayout(null);
 		jp.setBackground(Color.white);
 
-		//¾ÆÀÌµð
+
+		//ì•„ì´ë””
 		JPanel userId = new JPanel();
 		userId.setBackground(Color.white);
 		userId.setBounds(80, 135, 460, 55);
 		userId.setLayout(null);
-		JLabel idLabel = new JLabel("¾ÆÀÌµð  ");
+		JLabel idLabel = new JLabel("ì•„ì´ë””  ");
 		idLabel.setBounds(0, 0, 70, 55);
 		idLabel.setFont(font);
 		JTextField idTxt = new JTextField(20);
@@ -49,6 +53,7 @@ public class SignUp extends JFrame {
 		idTxt.setFont(font);
 		userId.add(idLabel);
 		userId.add(idTxt);
+
 		idTxt.addKeyListener(new KeyListener() {
 
 			@Override
@@ -66,23 +71,26 @@ public class SignUp extends JFrame {
 		});
 
 
-		JButton btn2 = new JButton("Áßº¹°Ë»ç È®ÀÎÄ­");
+		JButton btn2 = new JButton("ï¿½ßºï¿½ï¿½Ë»ï¿½ È®ï¿½ï¿½Ä­");
+
 		btn2.setLocation(80, 195);
+
 		btn2.setSize(230, 35); 
+
 		btn2.addMouseListener(new MouseAdapter()
 		{
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				//È¸¿ø°¡ÀÔÇÒ ¾ÆÀÌµð°¡ »çÀü¿¡ µî·ÏµÈ È¸¿øÀÇ ¾ÆÀÌµð¿Í µ¿ÀÏÇÒ °æ¿ì true°¡ ¸®ÅÏ µÈ´Ù.
+				//íšŒì›ê°€ìž…í•  ì•„ì´ë””ê°€ ì‚¬ì „ì— ë“±ë¡ëœ íšŒì›ì˜ ì•„ì´ë””ì™€ ë™ì¼í•  ê²½ìš° trueê°€ ë¦¬í„´ ëœë‹¤.
 				if(md.overlapId(idTxt.getText()) == true)
 				{
 					JDialog dialog = new JDialog();
 
 					dialog.setLayout(null);
 
-					JLabel overlap = new JLabel("ÀÌ¹Ì Á¸ÀçÇÏ´Â ¾ÆÀÌµðÀÔ´Ï´Ù.");
-					JButton overlapBtn = new JButton("È®ÀÎ");
+					JLabel overlap = new JLabel("ì´ë¯¸ ì¡´ìž¬í•˜ëŠ” ì•„ì´ë””ìž…ë‹ˆë‹¤.");
+					JButton overlapBtn = new JButton("í™•ì¸");
 
 					overlap.setBounds(60, 20, 250, 30);
 					overlapBtn.setBounds(100, 60, 75, 35);
@@ -106,8 +114,8 @@ public class SignUp extends JFrame {
 
 					dialog.setLayout(null);
 
-					JLabel overlap = new JLabel("»ç¿ë °¡´ÉÇÑ ¾ÆÀÌµðÀÔ´Ï´Ù.");
-					JButton overlapBtn = new JButton("È®ÀÎ");
+					JLabel overlap = new JLabel("ì‚¬ìš© ê°€ëŠ¥í•œ ì•„ì´ë””ìž…ë‹ˆë‹¤.");
+					JButton overlapBtn = new JButton("í™•ì¸");
 
 					overlap.setBounds(60, 20, 250, 30);
 					overlapBtn.setBounds(100, 60, 75, 35);
@@ -133,12 +141,14 @@ public class SignUp extends JFrame {
 			}
 		});
 
-		//ºñ¹Ð¹øÈ£
+
+		//ï¿½ï¿½Ð¹ï¿½È£
+
 		JPanel userPwd = new JPanel();
 		userPwd.setBackground(Color.white);
 		userPwd.setBounds(80, 240, 460, 55);
 		userPwd.setLayout(null);
-		JLabel pwdLabel = new JLabel("ºñ¹Ð¹øÈ£  ");
+		JLabel pwdLabel = new JLabel("ë¹„ë°€ë²ˆí˜¸  ");
 		pwdLabel.setBounds(0, 0, 80, 55);
 		pwdLabel.setFont(pwdFont);
 		JPasswordField pwdTxt = new JPasswordField(20);
@@ -146,12 +156,14 @@ public class SignUp extends JFrame {
 		userPwd.add(pwdLabel);
 		userPwd.add(pwdTxt);
 
-		//ºñ¹Ð¹øÈ£ È®ÀÎ
+
+		//ï¿½ï¿½Ð¹ï¿½È£ È®ï¿½ï¿½
+
 		JPanel userPwd2 = new JPanel();
 		userPwd2.setBackground(Color.white);
 		userPwd2.setBounds(80, 300, 460, 55);
 		userPwd2.setLayout(null);
-		JLabel pwdLabel2 = new JLabel("È®    ÀÎ  ");
+		JLabel pwdLabel2 = new JLabel("í™•    ì¸  ");
 		pwdLabel2.setBounds(0, 0, 80, 55);
 		pwdLabel2.setFont(pwdFont2);
 		JPasswordField pwdTxt2 = new JPasswordField(20);
@@ -159,12 +171,14 @@ public class SignUp extends JFrame {
 		userPwd2.add(pwdLabel2);
 		userPwd2.add(pwdTxt2);
 
-		//ÀÌ¸§
+
+		//ï¿½Ì¸ï¿½
+
 		JPanel userName = new JPanel();
 		userName.setBackground(Color.white);
 		userName.setBounds(80, 365, 460, 55);
 		userName.setLayout(null);
-		JLabel nameLabel = new JLabel("ÀÌ    ¸§  ");
+		JLabel nameLabel = new JLabel("ì´    ë¦„  ");
 		nameLabel.setBounds(0, 0, 80, 55);
 		nameLabel.setFont(pwdFont);
 		JTextField nameTxt = new JTextField(16);
@@ -173,13 +187,15 @@ public class SignUp extends JFrame {
 		userName.add(nameLabel);
 		userName.add(nameTxt);
 
-		//ÁÖ¹Ìµî·Ï ¹øÈ£
+
+		//ï¿½Ö¹Ìµï¿½ï¿½ ï¿½ï¿½È£
+
 		JPanel userNum = new JPanel();
 		userNum.setBackground(Color.white);
 		userNum.setBounds(80, 430, 460, 55);
 		userNum.setLayout(null);
-		JLabel numLabel = new JLabel("ÁÖ¹Îµî·Ï");
-		JLabel numLabel2 = new JLabel("¹ø     È£  ");
+		JLabel numLabel = new JLabel("ì£¼ë¯¼ë“±ë¡");
+		JLabel numLabel2 = new JLabel("ë²ˆ     í˜¸  ");
 		numLabel.setBounds(0, 0, 80, 25);
 		numLabel.setFont(new Font("gulim", Font.BOLD, 15));
 		numLabel2.setBounds(0, 23, 80, 25);
@@ -200,13 +216,14 @@ public class SignUp extends JFrame {
 		userNum.add(numTxt2);
 
 
-		//ÈÞ´ëÆù¹øÈ£
+		//ï¿½Þ´ï¿½ï¿½ï¿½ï¿½È£
+
 		JPanel userPhone = new JPanel();
 		userPhone.setBackground(Color.white);
 		userPhone.setBounds(80, 495, 460, 55);
 		userPhone.setLayout(null);
-		JLabel phoneLabel = new JLabel("ÈÞ ´ë Æù");
-		JLabel phoneLabel2 = new JLabel("¹ø     È£  ");
+		JLabel phoneLabel = new JLabel("íœ´ ëŒ€ í°");
+		JLabel phoneLabel2 = new JLabel("ë²ˆ     í˜¸  ");
 		phoneLabel.setBounds(0, 0, 80, 25);
 		phoneLabel.setFont(new Font("gulim", Font.BOLD, 15));
 		phoneLabel2.setBounds(0, 23, 80, 25);
@@ -219,13 +236,15 @@ public class SignUp extends JFrame {
 		userPhone.add(phoneTxt);
 
 
-		//ÀÌ¸ÞÀÏÁÖ¼Ò
+
+		//ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½
+
 		JPanel userMail = new JPanel();
 		userMail.setBackground(Color.white);
 		userMail.setBounds(80, 570, 460, 55);
 		userMail.setLayout(null);
-		JLabel mailLabel = new JLabel("ÀÌ ¸Þ ÀÏ");
-		JLabel mailLabel2 = new JLabel("ÁÖ     ¼Ò  ");
+		JLabel mailLabel = new JLabel("ì´ ë©” ì¼");
+		JLabel mailLabel2 = new JLabel("ì£¼     ì†Œ  ");
 		mailLabel.setBounds(0, 0, 80, 25);
 		mailLabel.setFont(new Font("gulim", Font.BOLD, 15));
 		mailLabel2.setBounds(0, 23, 80, 25);
@@ -237,7 +256,9 @@ public class SignUp extends JFrame {
 		userMail.add(mailLabel2);
 		userMail.add(mailTxt);
 
-		JButton btn10 = new JButton("È¸¿ø°¡ÀÔ¹öÆ°");
+
+		JButton btn10 = new JButton("È¸ï¿½ï¿½ï¿½Ô¹ï¿½Æ°");
+
 		btn10.setLocation(65, 705);
 		btn10.setSize(490, 65);
 		btn10.addMouseListener(new MouseAdapter()
@@ -254,6 +275,7 @@ public class SignUp extends JFrame {
 						{
 							password += pass[i];
 						}
+
 
 						String password2 = "";
 						char[] pass2 = pwdTxt2.getPassword();
@@ -272,8 +294,8 @@ public class SignUp extends JFrame {
 
 							dialog.setLayout(null);
 
-							JLabel overlap = new JLabel("ºñ¹Ð¹øÈ£¸¦ È®ÀÎÇØÁÖ¼¼¿ä");
-							JButton overlapBtn = new JButton("È®ÀÎ");
+							JLabel overlap = new JLabel("ï¿½ï¿½Ð¹ï¿½È£ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½");
+							JButton overlapBtn = new JButton("È®ï¿½ï¿½");
 
 							overlap.setBounds(60, 20, 250, 30);
 							overlapBtn.setBounds(100, 60, 75, 35);
@@ -290,7 +312,7 @@ public class SignUp extends JFrame {
 									dialog.dispose();
 								}
 							});
-							System.out.println("ºñ¹Ð¹øÈ£¸¦ È®ÀÎÇØÁÖ¼¼¿ä");
+							System.out.println("ï¿½ï¿½Ð¹ï¿½È£ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½");
 						}
 						else if(!(numTxt2.getText().charAt(0) >= '1' && numTxt2.getText().charAt(0) <= '4'))
 						{
@@ -306,8 +328,8 @@ public class SignUp extends JFrame {
 
 						dialog.setLayout(null);
 
-						JLabel overlap = new JLabel("¾ÆÀÌµð Áßº¹¿©ºÎ¸¦ È®ÀÎÇØÁÖ¼¼¿ä.");
-						JButton overlapBtn = new JButton("È®ÀÎ");
+						JLabel overlap = new JLabel("ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ßºï¿½ï¿½ï¿½ï¿½Î¸ï¿½ È®ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½.");
+						JButton overlapBtn = new JButton("È®ï¿½ï¿½");
 
 						overlap.setBounds(60, 20, 250, 30);
 						overlapBtn.setBounds(100, 60, 75, 35);
@@ -324,21 +346,23 @@ public class SignUp extends JFrame {
 								dialog.dispose();
 							}
 						});
-						System.out.println("¾ÆÀÌµð Áßº¹¿©ºÎ¸¦ È®ÀÎÇØÁÖ¼¼¿ä.");
+						System.out.println("ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ßºï¿½ï¿½ï¿½ï¿½Î¸ï¿½ È®ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½.");
 					}
 				}catch(StringIndexOutOfBoundsException e1){
-					System.out.println("ÁÖ¹Îµî·Ï ¹øÈ£°¡ Àß¸øµÇ¾ú½À´Ï´Ù.");
+					System.out.println("ï¿½Ö¹Îµï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½ß¸ï¿½Ç¾ï¿½ï¿½Ï´ï¿½.");
+
 				}
 			}
 
 		});
-		JButton btn11 = new JButton("È¸¿ø°¡ÀÔ");
+		JButton btn11 = new JButton("íšŒì›ê°€ìž…");
 		btn11.setLocation(120, 45);
+
 		btn11.setSize(170, 55); 
 
 		btn10.setLocation(65, 705);
 		btn10.setSize(240, 65);
-		JButton cancel = new JButton("Ãë    ¼Ò");
+		JButton cancel = new JButton("ï¿½ï¿½    ï¿½ï¿½");
 		cancel.setLocation(315, 705);
 		cancel.setSize(240, 65); 
 		cancel.addMouseListener(new MouseAdapter()
@@ -352,7 +376,8 @@ public class SignUp extends JFrame {
 			}
 		});
 
-		//¼±·¹ÀÌ¾Æ¿ô
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾Æ¿ï¿½
+
 		JButton btn12 = new JButton("");
 		btn12.setLocation(20, 110);
 		btn12.setSize(580, 5);
@@ -360,6 +385,8 @@ public class SignUp extends JFrame {
 		JButton btn13 = new JButton("");
 		btn13.setLocation(20, 570+20+55+20);
 		btn13.setSize(580, 5);
+
+
 
 		jp.add(userId);
 		jp.add(btn2);

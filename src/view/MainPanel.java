@@ -5,8 +5,10 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import java.util.ArrayList;
 import java.util.Random;
+
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -14,11 +16,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+
 import model.dao.MemberDao;
+
 import model.dao.MovieDao;
 import model.vo.Member;
 import model.vo.Movie;
 import model.vo.Store;
+
 
 public class MainPanel extends JPanel {
 	MovieDao movieDao = new MovieDao();
@@ -33,8 +38,10 @@ public class MainPanel extends JPanel {
 	private ArrayList<Movie> movielist = movieDao.getMovieList();
 	private ArrayList<Store> storelist = new ArrayList<Store>();
 	private MainPanel mp = this;
+
 	JButton home;
 	JButton movie,res,store;
+
 	public MainPanel(JFrame mf){
 		this.mf = mf;
 		panel = this;
@@ -51,15 +58,15 @@ public class MainPanel extends JPanel {
 		sub.setBackground(Color.white);
 
 
-		//ÅØ½ºÆ®Ä­
+		//í…ìŠ¤íŠ¸ì¹¸
 		menuName = new JLabel("");
 		menuName.setBackground(Color.white);
 		menuName.setFont(font);
 		menuName.setLocation(135, 45);
 		menuName.setSize(130, 55);
 
-		//·Î±×ÀÎ
-		JButton login = new JButton("·Î±×ÀÎ");
+		//ë¡œê·¸ì¸
+		JButton login = new JButton("ë¡œê·¸ì¸");
 		login.setLocation(0, 0);
 		login.setSize(100, 40); 
 
@@ -71,26 +78,29 @@ public class MainPanel extends JPanel {
 			}
 
 		});
-		//È¸¿ø°¡ÀÔ
+		//íšŒì›ê°€ì…
 		JButton signUp = new JButton(new ImageIcon("images/cat.PNG"));
 		signUp.setLocation(120, 0);
 		signUp.setSize(100, 40);  
 		signUp.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+
 				new SignUp(memberlist, memberDao);
+
+
 
 			}
 
 		});
 
-		//<¼± ·¹ÀÌ¾Æ¿ô>1
+		//<ì„  ë ˆì´ì•„ì›ƒ>1
 		JButton line = new JButton("");
 		line.setLocation(20, 110);
 		line.setSize(580, 5);
 
-		//¿µÈ­, ¿¹¸Å, ½ºÅä¾î ¹öÆ°
-		movie = new JButton("¿µÈ­");
+		//ì˜í™”, ì˜ˆë§¤, ìŠ¤í† ì–´ ë²„íŠ¼
+		movie = new JButton("ì˜í™”");
 		movie.setLocation(40, 0);
 		movie.setSize(160, 55);
 		movie.addMouseListener(new MouseAdapter() {
@@ -100,14 +110,14 @@ public class MainPanel extends JPanel {
 				panel.removeAll();
 				panel.add(main);
 				panel.add(m);
-				menuName.setText("¿µÈ­");
+				menuName.setText("ì˜í™”");
 				panel.repaint();
 
 			}
 
 		});
 
-		res = new JButton("¿¹¸Å");
+		res = new JButton("ì˜ˆë§¤");
 		res.setLocation(40+190, 0);
 		res.setSize(160, 55); 
 		res.addMouseListener(new MouseAdapter() {
@@ -117,14 +127,14 @@ public class MainPanel extends JPanel {
 				panel.removeAll();
 				panel.add(main);
 				panel.add(m);
-				menuName.setText("¿¹¸Å");
+				menuName.setText("ì˜ˆë§¤");
 				panel.repaint();
 
 			}
 
 		});
 
-		store = new JButton("½ºÅä¾î");
+		store = new JButton("ìŠ¤í† ì–´");
 		store.setLocation(40+190+190, 0);
 		store.setSize(160, 55); 
 		store.addMouseListener(new MouseAdapter() {
@@ -134,19 +144,20 @@ public class MainPanel extends JPanel {
 				panel.removeAll();
 				panel.add(main);
 				panel.add(m);
-				menuName.setText("½ºÅä¾î");
+				menuName.setText("ìŠ¤í† ì–´");
 				panel.repaint();
 
 			}
 
 		});
 
-		//<¼± ·¹ÀÌ¾Æ¿ô>2
+		//<ì„  ë ˆì´ì•„ì›ƒ>2
 		JButton line1 = new JButton("");
 		line1.setLocation(20, 55+5);
 		line1.setSize(580, 5);
 
-		//¸ŞÀÎÈ­¸é Æ÷½ºÅÍ
+
+		//ï¿½ï¿½ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		JPanel poster = new JPanel();
 		poster.setLocation(10, 15+55);
 		poster.setSize(580, 295);
@@ -161,17 +172,20 @@ public class MainPanel extends JPanel {
 			poster.add(posterl);
 		}
 		
-		//<¼± ·¹ÀÌ¾Æ¿ô>3
+		//<ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾Æ¿ï¿½>3
+
 		JButton line2 = new JButton("");
 		line2.setLocation(20, 295+15+10+55);
 		line2.setSize(580, 5); 
 
-		//¸ŞÀÎÈ­¸é ½ºÅä¾î
+
+		//ï¿½ï¿½ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 		JPanel storeMenu = new JPanel();
+
 		storeMenu.setLocation(30, 295+15+10+5+10+55);
 		storeMenu.setSize(560, 250);
 
-		//µÚ·Î°¡±â ¹öÆ°
+		//ë’¤ë¡œê°€ê¸° ë²„íŠ¼
 		home = new JButton("home");
 		home.setLocation(45, 45);
 		home.setSize(80, 55);  
