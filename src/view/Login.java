@@ -20,8 +20,10 @@ public class Login extends JFrame {
 	JFrame mf;
 	JPanel panel;
 	JFrame a = this;
+
 	MemberDao md = new MemberDao();
 	public Login(JFrame mf2, JPanel panel2){
+
 		this.mf = mf2;
 		this.panel = panel2;
 		this.setSize(420, 600);
@@ -33,23 +35,23 @@ public class Login extends JFrame {
 		Font pwdFont = new Font("gulim", Font.BOLD, 15);
 		Font pwdFont2 = new Font("gulim", Font.BOLD, 15);
 		Font font = new Font("gulim", Font.BOLD, 16);
-			//1.·Î±×ÀÎ
-		//·Î±×ÀÎÈ­¸é
-		//GC Cinema ·Î°í
+		//1.ë¡œê·¸ì¸
+		//ë¡œê·¸ì¸í™”ë©´
+		//GC Cinema ë¡œê³ 
 		JButton btn = new JButton("GC Cinema");
 		btn.setLocation(120, 40);
 		btn.setSize(160, 160);
-/*
-		//¾ÆÀÌµğÀÔ·ÂÄ­
-		JButton btn1 = new JButton("¾ÆÀÌµğ ÀÔ·Â");
+		/*
+		//ì•„ì´ë””ì…ë ¥ì¹¸
+		JButton btn1 = new JButton("ì•„ì´ë”” ì…ë ¥");
 		btn1.setLocation(65, 220);
 		btn1.setSize(270, 50);
-		*/
+		 */
 		JPanel userName = new JPanel();
 		userName.setBackground(Color.white);
 		userName.setBounds(65, 220, 270, 50);
 		userName.setLayout(null);
-		JLabel nameLabel = new JLabel("¾Æ ÀÌ µğ  ");
+		JLabel nameLabel = new JLabel("ì•„ ì´ ë””  ");
 		nameLabel.setBounds(0, 0, 80, 50);
 		nameLabel.setFont(pwdFont);
 		JTextField nameTxt = new JTextField(16);
@@ -57,18 +59,18 @@ public class Login extends JFrame {
 		nameTxt.setFont(font);
 		userName.add(nameLabel);
 		userName.add(nameTxt);
-		
-		
-		//ºñ¹Ğ¹øÈ£ÀÔ·ÂÄ­
-		/*JButton btn2 = new JButton("ºñ¹Ğ¹øÈ£ ÀÔ·Â");
+
+
+		//ë¹„ë°€ë²ˆí˜¸ì…ë ¥ì¹¸
+		/*JButton btn2 = new JButton("ë¹„ë°€ë²ˆí˜¸ ì…ë ¥");
 		btn2.setLocation(65, 280);
 		btn2.setSize(270, 50);
-		*/
+		 */
 		JPanel userPwd = new JPanel();
 		userPwd.setBackground(Color.white);
 		userPwd.setBounds(65, 280, 270, 50);
 		userPwd.setLayout(null);
-		JLabel pwdLabel = new JLabel("ºñ¹Ğ¹øÈ£  ");
+		JLabel pwdLabel = new JLabel("ë¹„ë°€ë²ˆí˜¸  ");
 		pwdLabel.setBounds(0, 0, 80, 50);
 		pwdLabel.setFont(pwdFont);
 		JPasswordField pwdTxt = new JPasswordField(16);
@@ -76,18 +78,18 @@ public class Login extends JFrame {
 		pwdTxt.setFont(font);
 		userPwd.add(pwdLabel);
 		userPwd.add(pwdTxt);
-		
-		//ÀÚµ¿·Î±×ÀÎ
-		/*JButton btn3 = new JButton("ÀÚµ¿·Î±×ÀÎ");
+
+		//ìë™ë¡œê·¸ì¸
+		/*JButton btn3 = new JButton("ìë™ë¡œê·¸ì¸");
 		btn3.setLocation(65, 340);
 		btn3.setSize(100, 30); */
-		
-		JCheckBox jc = new JCheckBox("ÀÚµ¿ ·Î±×ÀÎ");
+
+		JCheckBox jc = new JCheckBox("ìë™ ë¡œê·¸ì¸");
 		jc.setBounds(65, 340, 116, 30);
 		jc.setBackground(Color.white);
 		jc.setFont(font);
-		//·Î±×ÀÎ¹öÆ°
-		JButton btn4 = new JButton("·Î±×ÀÎ");
+		//ë¡œê·¸ì¸ë²„íŠ¼
+		JButton btn4 = new JButton("ë¡œê·¸ì¸");
 		btn4.setLocation(88, 400);
 		btn4.setSize(230, 40); 
 		btn4.addMouseListener(new MouseAdapter() {
@@ -107,8 +109,8 @@ public class Login extends JFrame {
 
 					dialog.setLayout(null);
 
-					JLabel overlap = new JLabel("¾ÆÀÌµğ ¶Ç´Â ºñ¹Ğ¹øÈ£¸¦ ´Ù½Ã È®ÀÎÇÏ¼¼¿ä!");
-					JButton overlapBtn = new JButton("È®ÀÎ");
+					JLabel overlap = new JLabel("ì•„ì´ë”” ë˜ëŠ” ë¹„ë°€ë²ˆí˜¸ë¥¼ ë‹¤ì‹œ í™•ì¸í•˜ì„¸ìš”!");
+					JButton overlapBtn = new JButton("í™•ì¸");
 
 					overlap.setBounds(25, 20, 250, 30);
 					overlapBtn.setBounds(100, 60, 75, 35);
@@ -122,7 +124,9 @@ public class Login extends JFrame {
 						@Override
 						public void mouseClicked(MouseEvent e)
 						{
+
 							dialog.dispose();
+
 						}
 					});
 				}
@@ -131,16 +135,18 @@ public class Login extends JFrame {
 					panel.removeAll();
 					panel2.setBounds(350, 55, 220, 40);
 					panel2.setBackground(Color.white);
-					JButton sdf = new JButton("·Î±×ÀÎµÊ");
+					JButton sdf = new JButton("ë¡œê·¸ì¸ë¨");
 					sdf.setBounds(0, 0, 220, 40);
 					panel.add(sdf);
+
 					mf.repaint();
 					a.dispose();
+
 				}
 			}
 
 		});
-		
+
 		p.add(btn);
 		p.add(userName);
 		p.add(userPwd);
@@ -148,6 +154,6 @@ public class Login extends JFrame {
 		p.add(btn4);
 		this.add(p);
 		this.setVisible(true);
-		
+
 	}
 }

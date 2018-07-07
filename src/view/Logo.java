@@ -13,16 +13,18 @@ import javax.swing.JPanel;
 public class Logo extends JFrame {
 	JFrame mf = this;
 	JPanel panel;
+
 	public Logo(){
 		this.setBounds(0, 0, 640, 900);
+
 		this.setLayout(null);
-		this.setTitle("GC��ȭ��");
+		this.setTitle("GC¿µÈ­°ü");
 		panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.white);
 		panel.setBounds(0, 0, 640, 860);
 		ImageIcon i = new ImageIcon("images/a.png");
-		JButton btn = new JButton(i);//�ΰ� �̹��� �ֱ�
+		JButton btn = new JButton(i);//·Î°í ÀÌ¹ÌÁö ³Ö±â
 //		JButton btn1 = new JButton("asdf");
 		btn.setLocation(130, 200);
 		btn.setSize(350, 350);
