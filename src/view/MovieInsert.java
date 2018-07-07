@@ -52,7 +52,7 @@ public class MovieInsert extends JFrame{
 		 str.setBounds(80,50, 640-80, 200);
 
 
-		 String[] time = {"07:00","10:00","13:00","16:00","19:00","21:00","24:00"};
+		
 		 ImageIcon mc[] = {new ImageIcon("images/cat.PNG"),new ImageIcon("images/dog.PNG"),new ImageIcon("images/tiger.PNG"),new ImageIcon("images/cat.PNG")};
 		 JLabel posterl = new JLabel("Æ÷½ºÅÍ");
 		 posterl.setBounds(20,260, 50, 30);
@@ -98,7 +98,7 @@ public class MovieInsert extends JFrame{
 			 @Override
 			 public void actionPerformed(ActionEvent e) {
 				 if (e.getSource() == sel) {
-					 m = new Movie(name.getText(),time,poster,str.getText(),mc,0);
+					 m = new Movie(name.getText(),poster,str.getText(),mc);
 					 md.movieInsert(m);
 					 name.setText("");
 					 str.setText("");

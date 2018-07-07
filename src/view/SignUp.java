@@ -2,6 +2,8 @@ package view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -22,8 +24,8 @@ public class SignUp extends JFrame
 	JFrame jf = this;
 
 	ArrayList<Member> list;
-	MemberDao md = new MemberDao();
-	public SignUp(ArrayList<Member> list){
+	boolean isid = false;
+	public SignUp(ArrayList<Member> list, MemberDao md){
 		this.list = list;
 
 		//폰트설정
@@ -36,10 +38,7 @@ public class SignUp extends JFrame
 		jp.setBounds(0, 0, 640, 860);
 		jp.setLayout(null);
 		jp.setBackground(Color.white);
-		//뒤로가기 버튼
-		JButton btn = new JButton("<");
-		btn.setLocation(45, 45);
-		btn.setSize(55, 55); 
+
 
 		//아이디
 		JPanel userId = new JPanel();
@@ -55,8 +54,25 @@ public class SignUp extends JFrame
 		userId.add(idLabel);
 		userId.add(idTxt);
 
+		idTxt.addKeyListener(new KeyListener() {
 
-		JButton btn2 = new JButton("중복검사 확인칸");
+			@Override
+			public void keyTyped(KeyEvent e) {
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				isid = false;
+			}
+		});
+
+
+		JButton btn2 = new JButton("�ߺ��˻� Ȯ��ĭ");
+
 		btn2.setLocation(80, 195);
 
 		btn2.setSize(230, 35); 
@@ -88,7 +104,7 @@ public class SignUp extends JFrame
 						@Override
 						public void mouseClicked(MouseEvent e)
 						{
-							dialog.setVisible(false);
+							dialog.dispose();
 						}
 					});
 				}
@@ -113,7 +129,8 @@ public class SignUp extends JFrame
 						@Override
 						public void mouseClicked(MouseEvent e)
 						{
-							dialog.setVisible(false);
+							isid = true;
+							dialog.dispose();
 						}
 					});
 				}
@@ -124,9 +141,9 @@ public class SignUp extends JFrame
 			}
 		});
 
-		
 
-		//비밀번호
+		//��й�ȣ
+
 		JPanel userPwd = new JPanel();
 		userPwd.setBackground(Color.white);
 		userPwd.setBounds(80, 240, 460, 55);
@@ -139,7 +156,9 @@ public class SignUp extends JFrame
 		userPwd.add(pwdLabel);
 		userPwd.add(pwdTxt);
 
-		//비밀번호 확인
+
+		//��й�ȣ Ȯ��
+
 		JPanel userPwd2 = new JPanel();
 		userPwd2.setBackground(Color.white);
 		userPwd2.setBounds(80, 300, 460, 55);
@@ -152,7 +171,9 @@ public class SignUp extends JFrame
 		userPwd2.add(pwdLabel2);
 		userPwd2.add(pwdTxt2);
 
-		//이름
+
+		//�̸�
+
 		JPanel userName = new JPanel();
 		userName.setBackground(Color.white);
 		userName.setBounds(80, 365, 460, 55);
@@ -166,7 +187,9 @@ public class SignUp extends JFrame
 		userName.add(nameLabel);
 		userName.add(nameTxt);
 
-		//주민등록 번호
+
+		//�̵ֹ�� ��ȣ
+
 		JPanel userNum = new JPanel();
 		userNum.setBackground(Color.white);
 		userNum.setBounds(80, 430, 460, 55);
@@ -193,7 +216,8 @@ public class SignUp extends JFrame
 		userNum.add(numTxt2);
 
 
-		//휴대폰번호
+		//�޴����ȣ
+
 		JPanel userPhone = new JPanel();
 		userPhone.setBackground(Color.white);
 		userPhone.setBounds(80, 495, 460, 55);
@@ -212,7 +236,9 @@ public class SignUp extends JFrame
 		userPhone.add(phoneTxt);
 
 
-		//이메일주소
+
+		//�̸����ּ�
+
 		JPanel userMail = new JPanel();
 		userMail.setBackground(Color.white);
 		userMail.setBounds(80, 570, 460, 55);
@@ -230,7 +256,9 @@ public class SignUp extends JFrame
 		userMail.add(mailLabel2);
 		userMail.add(mailTxt);
 
-		JButton btn10 = new JButton("회원가입버튼");
+
+		JButton btn10 = new JButton("ȸ���Թ�ư");
+
 		btn10.setLocation(65, 705);
 		btn10.setSize(490, 65);
 		btn10.addMouseListener(new MouseAdapter()
@@ -238,52 +266,118 @@ public class SignUp extends JFrame
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				String password = "";
-				char[] pass = pwdTxt.getPassword();
+				try{
+					if(isid){
+						String password = "";
+						char[] pass = pwdTxt.getPassword();
 
-				for(int i=0; i<pass.length; i++)
-				{
-					password += pass[i];
-				}
-				
-				String password2 = "";
-				char[] pass2 = pwdTxt2.getPassword();
-				
-				for(int i=0; i<pass2.length; i++)
-				{
-					password2 += pass2[i];
-				}
+						for(int i=0; i<pass.length; i++)
+						{
+							password += pass[i];
+						}
 
-				System.out.println(password);
-				System.out.println(password2);
-				
-				if(md.overlapId(idTxt.getText()))
-				{
-					System.out.println("아이디 중복이야!");
-				}
-				else if(!password.equals(password2))
-				{
-					System.out.println("비밀번호가 달라!");
-				}
-				else if(!(numTxt2.getText().charAt(0) >= '1' && numTxt2.getText().charAt(0) <= '4'))
-				{
-					System.out.println("1~4가 아니야!");
-				}
-				else
-				{
-					Member m = new Member(idTxt.getText(), password, nameTxt.getText(), (numTxt.getText() + "-" + numTxt2.getText()), numTxt2.getText().substring(0), phoneTxt.getText(), mailTxt.getText());
-					md.signUp(m);
 
-					jf.dispose();
+						String password2 = "";
+						char[] pass2 = pwdTxt2.getPassword();
+
+						for(int i=0; i<pass2.length; i++)
+						{
+							password2 += pass2[i];
+						}
+
+						System.out.println(password);
+						System.out.println(password2);
+						
+						if(!password.equals(password2))
+						{
+							JDialog dialog = new JDialog();
+
+							dialog.setLayout(null);
+
+							JLabel overlap = new JLabel("��й�ȣ�� Ȯ�����ּ���");
+							JButton overlapBtn = new JButton("Ȯ��");
+
+							overlap.setBounds(60, 20, 250, 30);
+							overlapBtn.setBounds(100, 60, 75, 35);
+							dialog.add(overlapBtn);
+							dialog.add(overlap);
+							dialog.setBounds(250, 150, 300, 150);
+							dialog.setVisible(true);
+
+							overlapBtn.addMouseListener(new MouseAdapter()
+							{
+								@Override
+								public void mouseClicked(MouseEvent e)
+								{
+									dialog.dispose();
+								}
+							});
+							System.out.println("��й�ȣ�� Ȯ�����ּ���");
+						}
+						else if(!(numTxt2.getText().charAt(0) >= '1' && numTxt2.getText().charAt(0) <= '4'))
+						{
+							
+						}else
+						{
+							Member m = new Member(idTxt.getText(), password, nameTxt.getText(), (numTxt.getText() + "-" + numTxt2.getText()), numTxt2.getText().substring(0), phoneTxt.getText(), mailTxt.getText());
+							md.signUp(m);
+							jf.dispose();
+						}
+					}else{
+						JDialog dialog = new JDialog();
+
+						dialog.setLayout(null);
+
+						JLabel overlap = new JLabel("���̵� �ߺ����θ� Ȯ�����ּ���.");
+						JButton overlapBtn = new JButton("Ȯ��");
+
+						overlap.setBounds(60, 20, 250, 30);
+						overlapBtn.setBounds(100, 60, 75, 35);
+						dialog.add(overlapBtn);
+						dialog.add(overlap);
+						dialog.setBounds(250, 150, 300, 150);
+						dialog.setVisible(true);
+
+						overlapBtn.addMouseListener(new MouseAdapter()
+						{
+							@Override
+							public void mouseClicked(MouseEvent e)
+							{
+								dialog.dispose();
+							}
+						});
+						System.out.println("���̵� �ߺ����θ� Ȯ�����ּ���.");
+					}
+				}catch(StringIndexOutOfBoundsException e1){
+					System.out.println("�ֹε�� ��ȣ�� �߸�Ǿ��ϴ�.");
 
 				}
 			}
+
 		});
 		JButton btn11 = new JButton("회원가입");
 		btn11.setLocation(120, 45);
-		btn11.setSize(130, 55); 
 
-		//선레이아웃
+		btn11.setSize(170, 55); 
+
+		btn10.setLocation(65, 705);
+		btn10.setSize(240, 65);
+		JButton cancel = new JButton("��    ��");
+		cancel.setLocation(315, 705);
+		cancel.setSize(240, 65); 
+		cancel.addMouseListener(new MouseAdapter()
+		{
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+
+				jf.dispose();
+
+			}
+		});
+
+		//�����̾ƿ�
+
 		JButton btn12 = new JButton("");
 		btn12.setLocation(20, 110);
 		btn12.setSize(580, 5);
@@ -292,7 +386,8 @@ public class SignUp extends JFrame
 		btn13.setLocation(20, 570+20+55+20);
 		btn13.setSize(580, 5);
 
-		jp.add(btn);
+
+
 		jp.add(userId);
 		jp.add(btn2);
 		jp.add(userPwd);
@@ -303,6 +398,7 @@ public class SignUp extends JFrame
 		jp.add(userMail);
 		jp.add(btn10);
 		jp.add(btn11);
+		jp.add(cancel);
 		jp.add(btn12);
 		jp.add(btn13);
 		this.add(jp);

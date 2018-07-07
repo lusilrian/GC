@@ -8,34 +8,30 @@ import javax.swing.ImageIcon;
 
 public class Movie implements Serializable{
 	private String name; //영화이름
-	private String[] time;	//영화 상영 시간
 	private ImageIcon poster;//영화 포스터
 	private String str;//영화 줄거리
 	private ImageIcon[] cut;//영화 스틸컷
-	private int number = 1; //영화 구매 수량
-	public Movie(String name, String[] time, ImageIcon poster, String str, ImageIcon[] cut, int number) {
+	private int number; //구매수량;
+	private String[] times = {"07:00","10:00","13:00","16:00","19:00","21:00","24:00"};
+	private Theater[] theater = new Theater[times.length]; //상영관
+	public Movie(String name, ImageIcon poster, String str, ImageIcon[] cut) {
 		super();
 		this.name = name;
-		this.time = time;
 		Image originImg = poster.getImage(); 
 		Image changedImg= originImg.getScaledInstance(180, 220, Image.SCALE_SMOOTH );
 		ImageIcon Icon = new ImageIcon(changedImg);
 		this.poster = Icon;
 		this.str = str;
 		this.cut = cut;
-		this.number = number;
+		for(int i = 0; i < theater.length; i++){
+			theater[i] = new Theater(times[i]);
+		}
 	}
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public String[] getTime() {
-		return time;
-	}
-	public void setTime(String[] time) {
-		this.time = time;
 	}
 	public ImageIcon getPoster() {
 		return poster;
@@ -61,6 +57,11 @@ public class Movie implements Serializable{
 	public void setNumber(int number) {
 		this.number = number;
 	}
-	
+	public Theater[] getTheater() {
+		return theater;
+	}
+	public void setTheater(Theater[] theater) {
+		this.theater = theater;
+	}
 	
 }

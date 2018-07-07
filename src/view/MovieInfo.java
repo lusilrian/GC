@@ -2,22 +2,25 @@ package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
-import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import model.vo.Movie;
 
 public class MovieInfo extends JPanel {
 	private JPanel panel;
-	public MovieInfo(Movie movie) {
+	public MovieInfo(Movie movie, MainPanel mp) {
 		panel = this;
-		this.setBounds(10, 205, 620, 655);
+		this.setBounds(10, 125, 620, 655);
 		this.setBackground(Color.white);
 		this.setLayout(null);
 		
@@ -38,7 +41,17 @@ public class MovieInfo extends JPanel {
 		JButton resBtn = new JButton("예매하기");
 		resBtn.setLocation(95, 405-145);
 		resBtn.setSize(430, 40); 
+		resBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ResMenu m = new ResMenu(movie,mp);
+				panel.removeAll();
+				panel.add(m);
+				mp.menuName.setText("예매");
+				panel.repaint();
+			}
 
+		});
 		//줄거리
 		JButton story = new JButton(movie.getStr());
 		story.setLocation(320, 185-115);
