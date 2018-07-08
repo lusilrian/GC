@@ -29,7 +29,7 @@ public class SeatSel extends JFrame {
 		this.sel = sel;
 		this.m = m;
 		ss = this;
-		seats = clone(m.getTheater()[sel].getSeat());
+		seats = clone(m.getTheaters(rm.theaterSel.getText(), rm.daySel.getText()).get(sel).getSeat());
 		this.setSize(670,630);
 		this.setLayout(null);
 		panel = new JPanel();
@@ -48,7 +48,7 @@ public class SeatSel extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				num = 0;
-				seats = ss.clone(m.getTheater()[sel].getSeat());
+				seats = ss.clone(m.getTheaters(rm.theaterSel.getText(), rm.daySel.getText()).get(sel).getSeat());
 				seatTemp = new ArrayList<int[]>();
 				System.out.println(max);
 				max = Integer.parseInt((String)numBox.getSelectedItem());
@@ -125,16 +125,10 @@ public class SeatSel extends JFrame {
 							int temp[] = {a,b};
 							seatTemp.add(temp);
 							seats[a][b] = 1;
-						}
-
-						@Override
-						public void mouseExited(MouseEvent e) {
-							System.out.println("exited");
 							seatpanel.removeAll();
 							seatpanel.repaint();
 							printSeat();
 						}
-
 
 
 					});
@@ -174,7 +168,7 @@ public class SeatSel extends JFrame {
 		time.setBounds(0,150,540,40);
 		time.setFont(font);
 		String seatStr = "";
-		int[][] seats = m.getTheater()[sel].getSeat();
+		int[][] seats = m.getTheaters(rm.theaterSel.getText(), rm.daySel.getText()).get(sel).getSeat();
 		for(int i = 0; i < seatTemp.size(); i++){
 			switch(seatTemp.get(i)[0]){
 			case 0: seatStr += "A"; break;
@@ -249,7 +243,7 @@ public class SeatSel extends JFrame {
 		time.setBounds(50,150,250,40);
 		time.setFont(font);
 		String seatStr = "";
-		int[][] seats = m.getTheater()[sel].getSeat();
+		int[][] seats = m.getTheaters(rm.theaterSel.getText(), rm.daySel.getText()).get(sel).getSeat();
 		for(int i = 0; i < seatTemp.size(); i++){
 			switch(seatTemp.get(i)[0]){
 			case 0: seatStr += "A"; break;

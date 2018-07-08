@@ -25,6 +25,11 @@ public class Member implements Serializable{
 		this.birthDay = birthDay;
 		this.phoneNumber = phoneNumber;
 		this.email = email;
+		
+		m1 = new ArrayList<Movie>();
+		m2 = new ArrayList<Movie>();
+		s1 = new ArrayList<Store>();
+		s2 = new ArrayList<Store>();
 	}
 	
 	public String getUserId() {
@@ -72,8 +77,9 @@ public class Member implements Serializable{
 	public ArrayList<Movie> getM1() {
 		return m1;
 	}
-	public void setM1(ArrayList<Movie> m1) {
-		this.m1 = m1;
+	public void setM1(Movie m1) {
+		this.m1.add(m1);
+		System.out.println(this.m1.get(this.m1.size()-1));
 	}
 	public ArrayList<Movie> getM2() {
 		return m2;

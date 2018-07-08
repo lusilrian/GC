@@ -1,24 +1,29 @@
 package view;
 
-import javax.swing.JFrame;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import model.dao.MemberDao;
+import model.dao.MovieDao;
 import model.vo.Member;
 import model.vo.Movie;
 
-public class Pay extends JFrame {
+public class Pay extends JFrame{
 	
 	ResMenu rm;
 	MemberDao md;
+	MovieDao movieDao;
 	Member mem;
-	Movie movie;
+	Movie movietemp,movie;
 	int sel;
 	SeatSel ss;
 	JFrame p = this;
@@ -27,9 +32,14 @@ public class Pay extends JFrame {
 		this.rm = rm;
 		this.sel = sel;
 		this.ss = ss;
+		movieDao = rm.mp.getMovieDao();
 		md = rm.mp.getMemberDao();
 		mem = md.getLoginMember();
-		movie = ss.getMovie();
+		movietemp = ss.getMovie();
+		movie = new Movie(movietemp.getName(),movietemp.getPoster(),movietemp.getStr(),movietemp.getCut(),movietemp.getTheaters().get(sel).getTime(),rm.daySel.getText(),rm.theaterSel.getText());
+		movie.getTheater().setSeat(ss.seats);
+		movie.setNumber(ss.seatTemp.size());
+		System.out.println(movie);
 		this.setSize(670,630);
 		this.setLayout(null);
 		
@@ -55,7 +65,7 @@ public class Pay extends JFrame {
 		
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setVisible(true);
-		movie.getTheater()[sel].setSeat(ss.seats);;
+		
 
 	}
 	
@@ -96,6 +106,10 @@ public class Pay extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				mem.setM1(movie);
+				md.fileSave();
+				movietemp.getTheaters().get(sel).setSeat(ss.seats);
+				movieDao.fileSave();
 				rm.selPanel.removeAll();
 				rm.selPanel.add(ss.infoEnd(rm));
 				rm.repaint();
@@ -158,6 +172,7 @@ public class Pay extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				rm.selPanel.removeAll();
 				rm.selPanel.add(ss.infoEnd(rm));
+				
 				rm.repaint();
 				p.dispose();
 			}
@@ -174,9 +189,6 @@ public class Pay extends JFrame {
 		sub.add(btn);
 		return sub;
 	}
-	
-	
-	
 	
 	
 }

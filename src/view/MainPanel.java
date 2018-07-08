@@ -159,12 +159,16 @@ public class MainPanel extends JPanel {
 		poster.setLayout(null);
 		poster.setBackground(Color.WHITE);
 		for(int i = 0; i < 3;i++){
+			try{
 			Image originImg = movielist.get(i).getPoster().getImage(); 
 			Image changedImg= originImg.getScaledInstance(180, 220, Image.SCALE_SMOOTH );
 			ImageIcon Icon = new ImageIcon(changedImg);
 			JLabel posterl = new JLabel(Icon);
 			posterl.setBounds(0+(i*10)+(i*190), 0, 190, 295);
 			poster.add(posterl);
+			}catch(IndexOutOfBoundsException e){
+				
+			}
 		}
 
 		//<¼± ·¹ÀÌ¾Æ¿ô>3
@@ -242,7 +246,9 @@ public class MainPanel extends JPanel {
 	public MemberDao getMemberDao(){
 		return memberDao;
 	}
-
+	public MovieDao getMovieDao(){
+		return movieDao;
+	}
 	public JPanel LoginUp(){
 		JPanel loginUp = new JPanel();
 		loginUp.setBounds(350, 55, 220, 40);

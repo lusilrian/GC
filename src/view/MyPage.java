@@ -18,7 +18,6 @@ import model.dao.MemberDao;
 
 public class MyPage extends JFrame {
 	JFrame jf = this;
-
 	public MyPage(String Id,String password,MemberDao md, MainPanel mp) {
 		// <배경>
 		Font pwdFont = new Font("gulim", Font.BOLD, 15);
@@ -92,6 +91,16 @@ public class MyPage extends JFrame {
 		JButton btn11 = new JButton("구매내역");
 		btn11.setLocation(110, 500-110);
 		btn11.setSize(400, 55);
+		btn11.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				new PayInfo(md,1);
+			}
+		});
+		
+		
+		
 
 		// 내정보관리
 		JButton btn12 = new JButton("내정보관리");

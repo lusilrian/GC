@@ -208,9 +208,10 @@ public class ResMenu extends JPanel {
 					break;
 				case"시간 선택" : 
 					selPanel.removeAll();
-					String[] times = new String[list.get(0).getTheater().length];
-					for(int i = 0; i < list.get(0).getTheater().length; i++){
-						times[i] = list.get(i).getTheater()[i].getTime();
+					String[] times = new String[list.get(0).getTimes().length];
+					ArrayList<Theater> arr = list.get(selmovie).getTheaters(theaterSel.getText(), daySel.getText());
+					for(int i = 0; i < arr.size(); i++){
+						times[i] = arr.get(i).getTime();
 					}
 					JButton time = new JButton("상영 시간");
 					time.setLocation(0, 0);
@@ -444,9 +445,10 @@ public class ResMenu extends JPanel {
 					break;
 				case"시간 선택" : 
 					selPanel.removeAll();
-					String[] times = new String[list.getTheater().length];
-					for(int i = 0; i < list.getTheater().length; i++){
-						times[i] = list.getTheater()[i].getTime();
+					String[] times = new String[list.getTimes().length];
+					ArrayList<Theater> arr = list.getTheaters(theaterSel.getText(), daySel.getText());
+					for(int i = 0; i < arr.size(); i++){
+						times[i] = arr.get(i).getTime();
 					}
 					JButton time = new JButton("상영 시간");
 					time.setLocation(0, 0);
