@@ -14,6 +14,7 @@ import model.vo.Member;
 public class MemberDao
 {
 	private ArrayList<Member> list = new ArrayList<Member>();
+	private Member loginMember;
 
 	public MemberDao()
 	{
@@ -25,7 +26,14 @@ public class MemberDao
 			while(true)
 			{
 				list.add((Member) oir.readObject());
-				System.out.println(list.get(i++));
+				System.out.println(list.get(i));
+
+				if(list.get(i).isAutoLoginCheck())
+				{
+					System.out.println("자동로그인dao");
+					loginMember = list.get(i);
+				}
+				i++;
 			}
 		}
 		catch (EOFException e)
@@ -72,11 +80,11 @@ public class MemberDao
 		}
 		return false;
 	}
-	
+
 	public void signUp(Member m)
 	{
 		list.add(m);
-		
+
 		try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("member.dat")))
 		{
 			for(int i=0; i<list.size(); i++)
@@ -104,10 +112,10 @@ public class MemberDao
 		}		
 		return myAccount;
 	}
-	
+
 	public void modifyAccount(Member list)
 	{
-		
+
 		try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("member.dat")))
 		{
 			for(int i=0; i<this.list.size(); i++)
@@ -120,6 +128,48 @@ public class MemberDao
 				}
 			}
 			oos.flush();
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public void loginMember(String userId){
+		for(int i=0; i<list.size(); i++)
+		{
+			if(userId.equals(list.get(i).getUserId()))
+			{
+				loginMember = list.get(i);
+			}
+		}
+	}
+
+	public Member getLoginMember(){
+		return loginMember;
+	}
+	
+	public void setLoginMember(Member loginMember) {
+		this.loginMember = loginMember;
+	}
+	
+	public ArrayList<Member> getList() {
+		return list;
+	}
+	public void setList(ArrayList<Member> list) {
+		this.list = list;
+	}
+
+	public void fileSave(){
+		try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("member.dat")))
+		{
+
+			for(int i=0; i<list.size(); i++)
+			{
+				oos.writeObject(list.get(i));
+			}
+			oos.flush();
+
 		}
 		catch(IOException e)
 		{

@@ -23,7 +23,7 @@ public class MovieInfo extends JPanel {
 		this.setBounds(10, 125, 620, 655);
 		this.setBackground(Color.white);
 		this.setLayout(null);
-		
+
 		//영화이름
 		JButton movieName = new JButton(movie.getName());
 		movieName.setLocation(70, 125-115);
@@ -41,22 +41,26 @@ public class MovieInfo extends JPanel {
 		JButton resBtn = new JButton("예매하기");
 		resBtn.setLocation(95, 405-145);
 		resBtn.setSize(430, 40); 
+
 		resBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ResMenu m = new ResMenu(movie,mp);
-				panel.removeAll();
-				panel.add(m);
-				mp.menuName.setText("예매");
-				panel.repaint();
+				if(mp.memberDao.getLoginMember() != null){
+					ResMenu m = new ResMenu(movie,mp);
+					panel.removeAll();
+					panel.add(m);
+					mp.menuName.setText("예매");
+					panel.repaint();
+				}
 			}
 
 		});
+
 		//줄거리
 		JButton story = new JButton(movie.getStr());
 		story.setLocation(320, 185-115);
 		story.setSize(200, 180);
-		
+
 		JPanel panelS = new JPanel();
 		panelS.setLayout(new GridLayout(1, 3));
 		JScrollPane jsp = new JScrollPane();
@@ -76,7 +80,7 @@ public class MovieInfo extends JPanel {
 
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					
+
 					JFrame fdsa = new JFrame();
 					fdsa.setSize(360, 540);
 					Image originImg = mc[j].getImage(); 
@@ -88,32 +92,32 @@ public class MovieInfo extends JPanel {
 
 						@Override
 						public void mouseClicked(MouseEvent e) {
-							
+
 							fdsa.dispose();
-							
+
 						}
 
 					});
 					fdsa.setVisible(true);
-					
+
 				}
 
 			});
 			p.add(poster);
 			panelS.add(p);
 		}
-		
-		
+
+
 		this.add(movieName);
 		this.add(posterImg);
 		this.add(resBtn);
 		this.add(story);
 		this.add(jsp);
-		
-		
-		
-		
-		
+
+
+
+
+
 	}
 
 }

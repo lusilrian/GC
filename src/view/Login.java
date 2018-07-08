@@ -2,6 +2,8 @@ package view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -16,12 +18,16 @@ import javax.swing.JTextField;
 import javax.swing.text.StyledEditorKit.BoldAction;
 
 import model.dao.MemberDao;
+import model.vo.Member;
 
 public class Login extends JFrame {
 	JFrame mf;
 	JPanel panel;
 	JFrame a = this;
-	public Login(JFrame mf2, JPanel panel2, MemberDao md){
+	String password;
+	Member list;
+	
+	public Login(JFrame mf2, JPanel panel2, MemberDao md, MainPanel mp){
 		this.mf = mf2;
 		this.panel = panel2;
 		this.setSize(420, 600);
@@ -39,12 +45,7 @@ public class Login extends JFrame {
 		JButton btn = new JButton("GC Cinema");
 		btn.setLocation(120, 40);
 		btn.setSize(160, 160);
-/*
-		//아이디입력칸
-		JButton btn1 = new JButton("아이디 입력");
-		btn1.setLocation(65, 220);
-		btn1.setSize(270, 50);
-		*/
+
 		JPanel userName = new JPanel();
 		userName.setBackground(Color.white);
 		userName.setBounds(65, 220, 270, 50);
@@ -94,7 +95,7 @@ public class Login extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				String password = "";
+				password = "";
 				char[] pass = pwdTxt.getPassword();
 
 				for(int i=0; i<pass.length; i++)
@@ -128,6 +129,10 @@ public class Login extends JFrame {
 				}
 				else
 				{
+					md.loginMember(nameTxt.getText());
+					list = md.getLoginMember();
+					list.setAutoLoginCheck(jc.isSelected());
+					md.fileSave();
 					panel.removeAll();
 					panel2.setBounds(350, 55, 220, 40);
 					panel2.setBackground(Color.white);
@@ -140,9 +145,16 @@ public class Login extends JFrame {
 					idLabel.setFont(new Font("gulim",font.BOLD,18));
 					JButton myPage = new JButton("마이페이지");
 					myPage.setBounds(110, 0, 100, 40);
+					myPage.addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							new MyPage(nameTxt.getText(),password,md,mp);
+						}
+					});
 					sdf.add(idLabel);
 					sdf.add(myPage);
 					panel.add(sdf);
+					mp.repaint();
 					mf.repaint();
 					a.dispose();
 				}

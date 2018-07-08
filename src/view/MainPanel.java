@@ -3,6 +3,8 @@ package view;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -26,20 +28,21 @@ public class MainPanel extends JPanel {
 	JFrame mf;
 	JPanel panel;
 	JLabel menuName;
-	private JPanel loginUp = new JPanel();
+
+	JPanel loginUp = new JPanel();
 	JPanel main = new JPanel();
 	JPanel sub = new JPanel();
 	private ArrayList<Member> memberlist = new ArrayList<Member>();
 	private ArrayList<Movie> movielist = movieDao.getMovieList();
 	private ArrayList<Store> storelist = new ArrayList<Store>();
-	private MainPanel mp = this;
+	MainPanel mp = this;
 	JButton home;
 	JButton movie,res,store;
 	public MainPanel(JFrame mf){
 		this.mf = mf;
 		panel = this;
 		Font font = new Font("gulim", Font.BOLD, 16);
-		
+
 		this.setBounds(0, 0, 640, 860);
 		this.setLayout(null);
 		this.setBackground(Color.white);
@@ -66,7 +69,7 @@ public class MainPanel extends JPanel {
 		login.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Login l = new Login(mf,loginUp,memberDao);
+				Login l = new Login(mf,loginUp,memberDao, mp);
 
 			}
 
@@ -110,15 +113,18 @@ public class MainPanel extends JPanel {
 		res = new JButton("예매");
 		res.setLocation(40+190, 0);
 		res.setSize(160, 55); 
+
 		res.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ResMenu m = new ResMenu(movielist,mp);
-				panel.removeAll();
-				panel.add(main);
-				panel.add(m);
-				menuName.setText("예매");
-				panel.repaint();
+				if(memberDao.getLoginMember() != null){
+					ResMenu m = new ResMenu(movielist,mp);
+					panel.removeAll();
+					panel.add(main);
+					panel.add(m);
+					menuName.setText("예매");
+					panel.repaint();
+				}
 
 			}
 
@@ -160,7 +166,7 @@ public class MainPanel extends JPanel {
 			posterl.setBounds(0+(i*10)+(i*190), 0, 190, 295);
 			poster.add(posterl);
 		}
-		
+
 		//<선 레이아웃>3
 		JButton line2 = new JButton("");
 		line2.setLocation(20, 295+15+10+55);
@@ -193,10 +199,33 @@ public class MainPanel extends JPanel {
 		loginUp.setBackground(Color.white);
 		loginUp.setLayout(null);
 		loginUp.setOpaque(false);
-		loginUp.add(login);
-		loginUp.add(signUp);
+
 		main.add(line);
 		sub.add(line1);
+		if(memberDao.getLoginMember() != null)
+		{
+
+			System.out.println("자동로그인");
+			JLabel idLabel = new JLabel(memberDao.getLoginMember().getUserId() + "님");
+			idLabel.setBounds(0, 0, 100, 40);
+			idLabel.setFont(new Font("gulim",font.BOLD,18));
+			JButton myPage = new JButton("마이페이지");
+			myPage.setBounds(110, 0, 100, 40);
+			myPage.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					new MyPage(memberDao.getLoginMember().getUserId(),memberDao.getLoginMember().getUserPwd(),memberDao,mp);
+				}
+			});
+			loginUp.add(idLabel);
+			loginUp.add(myPage);
+		}
+		else
+		{
+			loginUp = LoginUp();
+			//			loginUp.add(login);
+			//			loginUp.add(signUp);
+		}
 		main.add(loginUp);
 		main.add(home);
 		main.add(menuName);
@@ -210,5 +239,43 @@ public class MainPanel extends JPanel {
 		this.add(sub);
 	}
 
+	public MemberDao getMemberDao(){
+		return memberDao;
+	}
 
+	public JPanel LoginUp(){
+		JPanel loginUp = new JPanel();
+		loginUp.setBounds(350, 55, 220, 40);
+		loginUp.setBackground(Color.white);
+		loginUp.setLayout(null);
+		loginUp.setOpaque(false);
+		//로그인
+		JButton login = new JButton("로그인");
+		login.setLocation(0, 0);
+		login.setSize(100, 40); 
+
+		login.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Login l = new Login(mf,loginUp,memberDao, mp);
+
+			}
+
+		});
+		//회원가입
+		JButton signUp = new JButton(new ImageIcon("images/cat.PNG"));
+		signUp.setLocation(120, 0);
+		signUp.setSize(100, 40);  
+		signUp.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				new SignUp(memberlist, memberDao);
+
+			}
+
+		});
+		loginUp.add(login);
+		loginUp.add(signUp);
+		return loginUp;
+	}
 }

@@ -11,6 +11,7 @@ public class Member implements Serializable{
 	private String birthDay;
 	private String phoneNumber;
 	private String email;
+	private boolean autoLoginCheck; //2018-07-07 추가
 	private ArrayList<Movie> m1;//예매영화 내역
 	private ArrayList<Movie> m2;//구매 영화 내역
 	private ArrayList<Store> s1;//사용전 구매내역
@@ -98,6 +99,14 @@ public class Member implements Serializable{
 		return userId + "," + userPwd + "," + name + "," + gender
 				+ "," + birthDay + "," + phoneNumber + "," + email + "," + m1
 				+ "," + m2 + "," + s1 + "," + s2;
+	}
+
+	public boolean isAutoLoginCheck() {
+		return autoLoginCheck;
+	}
+
+	public void setAutoLoginCheck(boolean autoLoginCheck) {
+		this.autoLoginCheck = autoLoginCheck;
 	}
 	
 	

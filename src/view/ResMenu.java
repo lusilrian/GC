@@ -23,7 +23,7 @@ import model.vo.Movie;
 import model.vo.Theater;
 
 public class ResMenu extends JPanel {
-	private JPanel panel;
+	JPanel panel;
 	JButton daySel, timeSel, movieSel, theaterSel;
 	MouseAdapter m;
 	int index;
@@ -32,13 +32,15 @@ public class ResMenu extends JPanel {
 	JComboBox timeList;
 	int selmovie;
 	ResMenu rm = this;
+	JPanel selPanel;
+	MainPanel mp;
 	public ResMenu(ArrayList<Movie> list, MainPanel mp){
 		panel = this;
 		this.setBounds(0, 120, 640, 655+130);
 		this.setBackground(Color.white);
 		this.setLayout(null);
-
-		JPanel selPanel = new JPanel();
+		this.mp = mp;
+		selPanel = new JPanel();
 		selPanel.setLocation(40, 405-130);
 		selPanel.setSize(540, 370); 
 		selPanel.setLayout(null);
@@ -86,6 +88,7 @@ public class ResMenu extends JPanel {
 								Image changedImg= originImg.getScaledInstance(125, 150, Image.SCALE_SMOOTH );
 								ImageIcon Icon = new ImageIcon(changedImg);
 								selmovie = a;
+								movieSel.setText(list.get(a).getName());
 								movieSel.setIcon(Icon);
 								selPanel.removeAll();
 								selPanel.repaint();
@@ -223,7 +226,9 @@ public class ResMenu extends JPanel {
 						@Override
 						public void actionPerformed(ActionEvent e) {
 							if(e.getSource() == sel){
-								timeSel.setText((String) timeList.getSelectedItem());
+								String t = (String) timeList.getSelectedItem();
+								timeSel.setText(t.substring(0, 5));
+								
 								selPanel.removeAll();
 								JButton seat = new JButton("좌석 선택");
 								seat.setBounds(100, 100, 200, 160);
@@ -310,11 +315,12 @@ public class ResMenu extends JPanel {
 
 	public ResMenu(Movie list, MainPanel mp){
 		panel = this;
+		
 		this.setBounds(0, 0, 640, 655+130);
 		this.setBackground(Color.white);
 		this.setLayout(null);
-
-		JPanel selPanel = new JPanel();
+		this.mp = mp;
+		selPanel = new JPanel();
 		selPanel.setLocation(40, 405-130);
 		selPanel.setSize(540, 370); 
 		selPanel.setLayout(null);
@@ -381,7 +387,6 @@ public class ResMenu extends JPanel {
 								theaterSel.setText((String) theaterList.getSelectedItem());
 								selPanel.removeAll();
 								selPanel.repaint();
-
 								daySel.addMouseListener(m);
 								theaterSel.removeMouseListener(m);
 							}
@@ -457,16 +462,18 @@ public class ResMenu extends JPanel {
 						@Override
 						public void actionPerformed(ActionEvent e) {
 							if(e.getSource() == sel){
-								timeSel.setText((String) timeList.getSelectedItem());
+								String t = (String) timeList.getSelectedItem();
+								timeSel.setText(t.substring(0, 5));
+								
 								selPanel.removeAll();
 								JButton seat = new JButton("좌석 선택");
-								seat.setBounds(200, 200, 100, 60);
+								seat.setBounds(100, 100, 200, 160);
 								seat.addActionListener(new ActionListener() {
 									
 									@Override
 									public void actionPerformed(ActionEvent e) {
 										if(e.getSource() == seat){
-											new SeatSel(list, rm,timeList.getSelectedIndex());
+											new SeatSel(list, rm, timeList.getSelectedIndex());
 										}
 									}
 								});
@@ -493,6 +500,7 @@ public class ResMenu extends JPanel {
 		ImageIcon Icon = new ImageIcon(changedImg);
 		//영화, 극장, 날짜, 시간목록
 		movieSel = new JButton(Icon);
+		movieSel.setText(list.getName());
 		movieSel.setLocation(35, 180-130);
 		movieSel.setSize(125, 150); 
 
