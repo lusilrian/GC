@@ -79,7 +79,6 @@ public class Member implements Serializable{
 	}
 	public void setM1(Movie m1) {
 		this.m1.add(m1);
-		System.out.println(this.m1.get(this.m1.size()-1));
 	}
 	public ArrayList<Movie> getM2() {
 		return m2;
@@ -113,6 +112,11 @@ public class Member implements Serializable{
 
 	public void setAutoLoginCheck(boolean autoLoginCheck) {
 		this.autoLoginCheck = autoLoginCheck;
+	}
+
+	public void removeM1(Movie change) {
+		m1.remove(change);
+		
 	}
 	
 	

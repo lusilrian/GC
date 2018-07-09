@@ -9,10 +9,15 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-import javax.swing.*;import javax.swing.event.AncestorEvent;
-import javax.swing.event.AncestorListener;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import model.vo.Movie;
+import model.vo.Theater;
 
 public class SeatSel extends JFrame {
 	private JFrame jf;
@@ -23,12 +28,14 @@ public class SeatSel extends JFrame {
 	int num = 0,max;
 	int[][] seats;
 	ArrayList<int[]> seatTemp = new ArrayList<int[]>();
+	Theater t;
 	public SeatSel(Movie m, ResMenu rm, int sel){
 		super("ÁÂ¼® ¼±ÅÃ");
 		jf = this;
 		this.sel = sel;
 		this.m = m;
 		ss = this;
+		t = m.getTheaters(rm.theaterSel.getText(), rm.daySel.getText()).get(sel);
 		seats = clone(m.getTheaters(rm.theaterSel.getText(), rm.daySel.getText()).get(sel).getSeat());
 		this.setSize(670,630);
 		this.setLayout(null);
@@ -201,7 +208,7 @@ public class SeatSel extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == pay){
-					new Pay(rm,ss,sel,(String)payb.getSelectedItem());
+					new Pay(rm,ss,sel,(String)payb.getSelectedItem(),t);
 				}
 			}
 		});

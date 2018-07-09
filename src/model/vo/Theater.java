@@ -30,6 +30,11 @@ public class Theater implements Serializable {
 		str = time + "(" + o + "/" + (seat.length * seat[0].length) + ")";
 		return str;
 	}
+	
+	public String getTime2() {
+		
+		return time;
+	}
 
 
 	public void setTime(String time) {

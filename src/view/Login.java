@@ -15,9 +15,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.text.StyledEditorKit.BoldAction;
 
 import model.dao.MemberDao;
+import model.dao.MovieDao;
 import model.vo.Member;
 
 public class Login extends JFrame {
@@ -27,7 +27,7 @@ public class Login extends JFrame {
 	String password;
 	Member list;
 	
-	public Login(JFrame mf2, JPanel panel2, MemberDao md, MainPanel mp){
+	public Login(JFrame mf2, JPanel panel2, MemberDao md, MainPanel mp, MovieDao mvd){
 		this.mf = mf2;
 		this.panel = panel2;
 		this.setSize(420, 600);
@@ -148,7 +148,7 @@ public class Login extends JFrame {
 					myPage.addActionListener(new ActionListener() {
 						@Override
 						public void actionPerformed(ActionEvent e) {
-							new MyPage(nameTxt.getText(),password,md,mp);
+							new MyPage(nameTxt.getText(),password,md,mp, mvd);
 						}
 					});
 					sdf.add(idLabel);

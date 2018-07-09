@@ -23,18 +23,24 @@ public class MovieDao {
 
 		try
 		{
-			/*ArrayList<Theater> theaters;
+			ArrayList<Theater> theaters;
 			Calendar d = new GregorianCalendar();
 			for(int i = 0; i < list.size(); i++){
 				theaters = list.get(i).getTheaters();
 				for(int j = 0; j < 5; j++){
 					for(int k = 0; k < 5; k++){
 						for(int l = 0; l < theaters.size(); l++){
-							if(theaters.get(l).getDay().equals((d.get(Calendar.DAY_OF_MONTH)+2) + "/" + (d.get(Calendar.DATE)-1))){
+							System.out.println("------------------------------------------------------------------------------------");
+							System.out.println(theaters.get(l).getDay());
+							System.out.println((d.get(Calendar.MONTH)+1) + "/" + (d.get(Calendar.DATE)-1));
+							System.out.println(theaters.get(l).getDay().equals((d.get(Calendar.MONTH)+1) + "/" + (d.get(Calendar.DATE)-1)));
+							System.out.println("------------------------------------------------------------------------------------");
+							
+							if(theaters.get(l).getDay().equals((d.get(Calendar.MONTH)+1) + "/" + (d.get(Calendar.DATE)-1))){
 								System.out.println(d.get(Calendar.DATE)-1);
 								System.out.println(d.get(Calendar.DATE)+7);
 								Theater t = (Theater) theaters.get(l).clone();
-								t.setDay((d.get(Calendar.DAY_OF_MONTH)+2) + "/" + (d.get(Calendar.DATE)+7));
+								t.setDay((d.get(Calendar.MONTH)+1) + "/" + (d.get(Calendar.DATE)+7));
 								theaters.add(t);
 								theaters.remove(l);
 
@@ -42,7 +48,7 @@ public class MovieDao {
 						}
 					}
 				}
-			}*/
+			}
 			ObjectInputStream oir = new ObjectInputStream(new FileInputStream("movie.dat"));
 			int i = 0;
 			while(true)
@@ -72,7 +78,10 @@ public class MovieDao {
 		} /*catch (CloneNotSupportedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}*/ catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 

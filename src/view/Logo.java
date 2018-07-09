@@ -1,6 +1,8 @@
 package view;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -21,8 +23,16 @@ public class Logo extends JFrame {
 		panel.setLayout(null);
 		panel.setBackground(Color.white);
 		panel.setBounds(0, 0, 640, 860);
+		
 		ImageIcon i = new ImageIcon("images/a.png");
 		JButton btn = new JButton(i);//로고 이미지 넣기
+		btn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new MovieInsert();
+			}
+		});
 //		JButton btn1 = new JButton("asdf");
 		btn.setLocation(130, 200);
 		btn.setSize(350, 350);

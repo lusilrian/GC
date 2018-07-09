@@ -21,15 +21,15 @@ public class MovieMenu extends JPanel {
 		this.setBounds(10, 205, 620, 655);
 		this.setBackground(Color.white);
 		JPanel panelS = new JPanel();
-		panelS.setLayout(new GridLayout(2, 3));
-		panelS.setOpaque(false);
+		panelS.setLayout(new GridLayout(2, 0));
 		JScrollPane jsp = new JScrollPane();
 		jsp.setPreferredSize(new Dimension(600, 610));
 		jsp.setViewportView(panelS);
-		
+		Color[] c = {Color.blue,Color.yellow,Color.red};
 		for(int i = 0; i < list.size(); i++){
 			int j = i;
 			JPanel p = new JPanel();
+			p.setBackground(c[i%3]);
 			JLabel poster = new JLabel(list.get(i).getPoster());
 			poster.addMouseListener(new MouseAdapter() {
 

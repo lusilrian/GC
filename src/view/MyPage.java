@@ -9,16 +9,16 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import model.dao.MemberDao;
+import model.dao.MovieDao;
 
 
 
 public class MyPage extends JFrame {
 	JFrame jf = this;
-	public MyPage(String Id,String password,MemberDao md, MainPanel mp) {
+	public MyPage(String Id,String password,MemberDao md, MainPanel mp, MovieDao mvd) {
 		// <¹è°æ>
 		Font pwdFont = new Font("gulim", Font.BOLD, 15);
 		Font pwdFont2 = new Font("gulim", Font.BOLD, 15);
@@ -95,7 +95,7 @@ public class MyPage extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				new PayInfo(md,1);
+				new PayInfo(md,1, mvd);
 			}
 		});
 		

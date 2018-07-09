@@ -16,6 +16,7 @@ import model.dao.MemberDao;
 import model.dao.MovieDao;
 import model.vo.Member;
 import model.vo.Movie;
+import model.vo.Theater;
 
 public class Pay extends JFrame{
 	
@@ -27,17 +28,29 @@ public class Pay extends JFrame{
 	int sel;
 	SeatSel ss;
 	JFrame p = this;
-	public Pay(ResMenu rm, SeatSel ss, int sel, String paysel){
+	Theater t;
+	public Pay(ResMenu rm, SeatSel ss, int sel, String paysel,Theater t){
 		super(paysel);
 		this.rm = rm;
 		this.sel = sel;
 		this.ss = ss;
+		this.t = t;
 		movieDao = rm.mp.getMovieDao();
 		md = rm.mp.getMemberDao();
 		mem = md.getLoginMember();
 		movietemp = ss.getMovie();
-		movie = new Movie(movietemp.getName(),movietemp.getPoster(),movietemp.getStr(),movietemp.getCut(),movietemp.getTheaters().get(sel).getTime(),rm.daySel.getText(),rm.theaterSel.getText());
-		movie.getTheater().setSeat(ss.seats);
+		movie = new Movie(movietemp.getName(),movietemp.getPoster(),movietemp.getStr(),movietemp.getCut(),movietemp.getTheaters().get(sel).getTime2(),rm.daySel.getText(),rm.theaterSel.getText());
+		int[][] changeseat = movie.getTheater().getSeat();
+		for(int i = 0; i < ss.seatTemp.size(); i++){
+			changeseat[ss.seatTemp.get(i)[0]][ss.seatTemp.get(i)[1]] = 1;
+		}
+		
+		
+		movie.getTheater().setSeat(changeseat);
+		
+		
+		
+		
 		movie.setNumber(ss.seatTemp.size());
 		System.out.println(movie);
 		this.setSize(670,630);
@@ -170,11 +183,15 @@ public class Pay extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				mem.setM1(movie);
+				md.fileSave();
+				t.setSeat(ss.seats);
+				movieDao.fileSave();
 				rm.selPanel.removeAll();
 				rm.selPanel.add(ss.infoEnd(rm));
-				
 				rm.repaint();
 				p.dispose();
+				
 			}
 		});
 		

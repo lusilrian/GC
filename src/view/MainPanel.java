@@ -8,12 +8,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.Calendar;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import model.dao.MemberDao;
@@ -22,13 +23,13 @@ import model.vo.Member;
 import model.vo.Movie;
 import model.vo.Store;
 
-public class MainPanel extends JPanel {
+public class MainPanel extends JPanel implements Runnable{
 	MovieDao movieDao = new MovieDao();
 	MemberDao memberDao = new MemberDao();
 	JFrame mf;
 	JPanel panel;
 	JLabel menuName;
-
+	JLabel timer = new JLabel();
 	JPanel loginUp = new JPanel();
 	JPanel main = new JPanel();
 	JPanel sub = new JPanel();
@@ -42,7 +43,8 @@ public class MainPanel extends JPanel {
 		this.mf = mf;
 		panel = this;
 		Font font = new Font("gulim", Font.BOLD, 16);
-
+		Thread time = new Thread(this);
+		time.start();
 		this.setBounds(0, 0, 640, 860);
 		this.setLayout(null);
 		this.setBackground(Color.white);
@@ -60,7 +62,7 @@ public class MainPanel extends JPanel {
 		menuName.setFont(font);
 		menuName.setLocation(135, 45);
 		menuName.setSize(130, 55);
-
+		timer.setBounds(270, 45, 80, 115);
 		//로그인
 		JButton login = new JButton("로그인");
 		login.setLocation(0, 0);
@@ -69,7 +71,7 @@ public class MainPanel extends JPanel {
 		login.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Login l = new Login(mf,loginUp,memberDao, mp);
+				Login l = new Login(mf,loginUp,memberDao, mp, movieDao);
 
 			}
 
@@ -160,14 +162,14 @@ public class MainPanel extends JPanel {
 		poster.setBackground(Color.WHITE);
 		for(int i = 0; i < 3;i++){
 			try{
-			Image originImg = movielist.get(i).getPoster().getImage(); 
-			Image changedImg= originImg.getScaledInstance(180, 220, Image.SCALE_SMOOTH );
-			ImageIcon Icon = new ImageIcon(changedImg);
-			JLabel posterl = new JLabel(Icon);
-			posterl.setBounds(0+(i*10)+(i*190), 0, 190, 295);
-			poster.add(posterl);
+				Image originImg = movielist.get(i).getPoster().getImage(); 
+				Image changedImg= originImg.getScaledInstance(180, 220, Image.SCALE_SMOOTH );
+				ImageIcon Icon = new ImageIcon(changedImg);
+				JLabel posterl = new JLabel(Icon);
+				posterl.setBounds(0+(i*10)+(i*190), 0, 190, 295);
+				poster.add(posterl);
 			}catch(IndexOutOfBoundsException e){
-				
+
 			}
 		}
 
@@ -205,6 +207,7 @@ public class MainPanel extends JPanel {
 		loginUp.setOpaque(false);
 
 		main.add(line);
+		main.add(timer);
 		sub.add(line1);
 		if(memberDao.getLoginMember() != null)
 		{
@@ -218,7 +221,7 @@ public class MainPanel extends JPanel {
 			myPage.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					new MyPage(memberDao.getLoginMember().getUserId(),memberDao.getLoginMember().getUserPwd(),memberDao,mp);
+					new MyPage(memberDao.getLoginMember().getUserId(),memberDao.getLoginMember().getUserPwd(),memberDao,mp, movieDao);
 				}
 			});
 			loginUp.add(idLabel);
@@ -263,7 +266,7 @@ public class MainPanel extends JPanel {
 		login.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Login l = new Login(mf,loginUp,memberDao, mp);
+				Login l = new Login(mf,loginUp,memberDao, mp, movieDao);
 
 			}
 
@@ -284,4 +287,46 @@ public class MainPanel extends JPanel {
 		loginUp.add(signUp);
 		return loginUp;
 	}
+
+	@Override
+	public void run() {
+		while(true){
+			try {
+				Calendar c = Calendar.getInstance(); 
+				int hour = c.get(Calendar.HOUR_OF_DAY); 
+				int min = c.get(Calendar.MINUTE); 
+				int second = c.get(Calendar.SECOND); 
+				String clockText = Integer.toString(hour); 
+				clockText = clockText.concat(":"); 
+				clockText = clockText.concat((min < 10) ? "0" + Integer.toString(min) : Integer.toString(min)); 
+				clockText = clockText.concat(":"); 
+				clockText = clockText.concat((second < 10) ? "0" + Integer.toString(second) : Integer.toString(second)); 
+				timer.setText(clockText);
+				for(int i = 0; i < memberDao.getLoginMember().getM1().size(); i++){
+					String temp = memberDao.getLoginMember().getM1().get(i).getTheater().getTime2();
+					System.out.println(temp);
+					if(memberDao.getLoginMember().getM1().get(i).isAlarm()){
+						if(temp.equals(timer.getText().substring(0, 5))){
+							JOptionPane.showMessageDialog(null, memberDao.getLoginMember().getM1().get(i).getName()+"영화 상영시간입니다");
+							memberDao.getLoginMember().getM1().get(i).setAlarm(1);
+						}
+					}
+				}
+
+
+
+
+
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} catch (NullPointerException e1) {
+
+			}
+		}
+
+	}
+
+
+
 }

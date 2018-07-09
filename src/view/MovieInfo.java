@@ -62,16 +62,15 @@ public class MovieInfo extends JPanel {
 		story.setSize(200, 180);
 
 		JPanel panelS = new JPanel();
-		panelS.setLayout(new GridLayout(1, 3));
+		panelS.setLayout(new GridLayout(1, 0));
 		JScrollPane jsp = new JScrollPane();
 		jsp.setLocation(30, 465-155);
 		jsp.setSize(560, 290);
-		jsp.setPreferredSize(new Dimension(600, 300));
 		jsp.setViewportView(panelS);
 		ImageIcon mc[] = movie.getCut();
 		for(int i = 0; i < mc.length; i++){
 			originImg = mc[i].getImage(); 
-			changedImg= originImg.getScaledInstance(200, 260, Image.SCALE_SMOOTH );
+			changedImg= originImg.getScaledInstance(400, 260, Image.SCALE_SMOOTH );
 			Icon = new ImageIcon(changedImg);
 			int j = i;
 			JPanel p = new JPanel();
@@ -82,9 +81,9 @@ public class MovieInfo extends JPanel {
 				public void mouseClicked(MouseEvent e) {
 
 					JFrame fdsa = new JFrame();
-					fdsa.setSize(360, 540);
+					fdsa.setSize(1200, 780);
 					Image originImg = mc[j].getImage(); 
-					Image changedImg= originImg.getScaledInstance(360, 540, Image.SCALE_SMOOTH );
+					Image changedImg= originImg.getScaledInstance(1200, 780, Image.SCALE_SMOOTH );
 					ImageIcon Icon = new ImageIcon(changedImg);
 					JLabel ds = new JLabel(Icon);
 					fdsa.add(ds);

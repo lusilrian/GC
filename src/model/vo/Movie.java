@@ -8,7 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import javax.swing.ImageIcon;
+import javax.swing.ImageIcon;import javax.swing.JOptionPane;
 
 public class Movie implements Serializable{
 	private String name; //영화이름
@@ -17,22 +17,24 @@ public class Movie implements Serializable{
 	private ImageIcon[] cut;//영화 스틸컷
 	private int number; //구매수량;
 	private String[] days = new String[7];
-
 	private String[][] theaterStr = {{"가산디지털","건대입구","신도림","청량리","홍대입구"},{"검단","부평","성남","수원","인천"}};
 	private String[] times = {"07:00","10:00","13:00","16:00","19:00","21:00","24:00"};
 	private ArrayList<Theater> theaters;
-	//	private Theater[] theaters = new Theater[times.length]; //상영관
+	
 	private String time;
 	private Theater theater;
+	private boolean alarm = true;
 	//상영 영화
 	public Movie(String name, ImageIcon poster, String str, ImageIcon[] cut) {
 		for(int i = 0; i < days.length; i++){
 			Calendar d = new GregorianCalendar();
 			if((d.get(Calendar.DATE)+i)<=d.getActualMaximum(Calendar.DATE)){
-				days[i] = "" + (d.get(Calendar.DAY_OF_MONTH)+2) + "/" + (d.get(Calendar.DATE)+i);
+				System.out.println(d.get(Calendar.MONTH)+1);
+				days[i] = "" + (d.get(Calendar.MONTH)+1) + "/" + (d.get(Calendar.DATE)+i);
 			}else{
-				days[i] = "" + (d.get(Calendar.DAY_OF_MONTH)+3) + "/" + (d.get(Calendar.DATE)+i);
+				days[i] = "" + (d.get(Calendar.MONTH)+2) + "/" + (d.get(Calendar.DATE)+i);
 			}
+			System.out.println(days[i]);
 		}
 		theaters = new ArrayList<Theater>();
 		this.name = name;
@@ -171,6 +173,12 @@ public class Movie implements Serializable{
 		+ ", number=" + number + ", days=" + Arrays.toString(days) + ", theaterStr="
 		+ Arrays.toString(theaterStr) + ", times=" + Arrays.toString(times) + ", theaters=" + theaters
 		+ ", time=" + time + ", theater=" + theater + "]";
+	}
+	public boolean isAlarm() {
+		return alarm;
+	}
+	public void setAlarm(int alarm) {
+		this.alarm = false;
 	}
 
 

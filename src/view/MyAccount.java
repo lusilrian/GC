@@ -131,7 +131,7 @@ public class MyAccount extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				
+				mf.dispose();
 			}
 		});
 		
@@ -139,6 +139,7 @@ public class MyAccount extends JPanel{
 		JLabel apply = new JLabel(new ImageIcon("images/btn_¼öÁ¤.PNG"));
 		apply.setLocation(305, 580);
 		apply.setSize(150, 55);
+		apply.setBackground(Color.black);
 		apply.addMouseListener(new MouseAdapter()
 		{
 			@Override
@@ -147,11 +148,8 @@ public class MyAccount extends JPanel{
 				list.setPhoneNumber(phone.getText());
 				list.setEmail(email.getText());
 				list.setUserPwd(setPassword.getText());
-				md.modifyAccount(list);
-				
-				ChangePanel c = new ChangePanel(mf, panel);
-				MainPanel m = new MainPanel(mf);
-				c.change(m);
+				md.fileSave();
+				mf.dispose();
 			}
 		});
 

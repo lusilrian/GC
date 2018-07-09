@@ -167,15 +167,7 @@ public class ResMenu extends JPanel {
 					break;
 				case"날짜 선택" : 
 					selPanel.removeAll();
-					String[] days = new String[7];
-					for(int i = 0; i < days.length; i++){
-						Calendar d = new GregorianCalendar();
-						if((d.get(Calendar.DATE)+i)<=d.getActualMaximum(Calendar.DATE)){
-							days[i] = "" + (d.get(Calendar.DAY_OF_MONTH)+2) + "/" + (d.get(Calendar.DATE)+i);
-						}else{
-							days[i] = "" + (d.get(Calendar.DAY_OF_MONTH)+3) + "/" + (d.get(Calendar.DATE)+i);
-						}
-					}
+					String[] days = list.get(selmovie).getDays();
 					JButton day = new JButton("날짜");
 					day.setLocation(0, 0);
 					day.setSize(100, 40);
@@ -218,6 +210,7 @@ public class ResMenu extends JPanel {
 					time.setSize(100, 40);
 					timeList = new JComboBox(times);
 					timeList.setBounds(0, 50, 540, 40);
+				
 					sel = new JButton("확인");
 					
 					sel.setLocation(200, 200);
@@ -404,15 +397,7 @@ public class ResMenu extends JPanel {
 					break;
 				case"날짜 선택" : 
 					selPanel.removeAll();
-					String[] days = new String[7];
-					for(int i = 0; i < days.length; i++){
-						Calendar d = new GregorianCalendar();
-						if((d.get(Calendar.DATE)+i)<=d.getActualMaximum(Calendar.DATE)){
-							days[i] = "" + (d.get(Calendar.DAY_OF_MONTH)+2) + "/" + (d.get(Calendar.DATE)+i);
-						}else{
-							days[i] = "" + (d.get(Calendar.DAY_OF_MONTH)+3) + "/" + (d.get(Calendar.DATE)+i);
-						}
-					}
+					String[] days = list.getDays();
 					JButton day = new JButton("날짜");
 					day.setLocation(0, 0);
 					day.setSize(100, 40);
@@ -449,6 +434,7 @@ public class ResMenu extends JPanel {
 					ArrayList<Theater> arr = list.getTheaters(theaterSel.getText(), daySel.getText());
 					for(int i = 0; i < arr.size(); i++){
 						times[i] = arr.get(i).getTime();
+						System.out.println(times[i]);
 					}
 					JButton time = new JButton("상영 시간");
 					time.setLocation(0, 0);
